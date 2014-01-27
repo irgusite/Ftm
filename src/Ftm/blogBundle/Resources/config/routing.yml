@@ -1,0 +1,19 @@
+ftm_home:
+    pattern: /
+    defaults: { _controller: FtmblogBundle:Blog:index}
+
+ftm_irc:
+    pattern: /irc
+    defaults: { _controller: FtmblogBundle:Page:irc}
+
+ftm_mumble:
+    pattern: /mumble
+    defaults: { _controller: FtmblogBundle:Page:mumble}
+
+ftm_server:
+    pattern: /server
+    defaults: { _controller: FtmblogBundle:Page:server}
+
+ftm_contact:
+    pattern: /contact
+    defaults: {_controller: FtmblogBundle:Page:contact}

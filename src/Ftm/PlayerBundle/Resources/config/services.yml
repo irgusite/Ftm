@@ -1,0 +1,7 @@
+parameters:
+#    ftm_player.example.class: Ftm\PlayerBundle\Example
+
+services:
+#    ftm_player.example:
+#        class: %ftm_player.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

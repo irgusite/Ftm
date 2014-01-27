@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}
+Feed the Marshmallow
+{%endblock%}
+
+{% block topContainer %}
+<div class="hero-unit">
+	<h1>Salut Marhsmallow!</h1>
+	<p>Bienvenue sur le site du serveur Feed the Marshmallow! Le serveur est accessible sur inscription.</p>
+	<p><a href="{{ path('ftm_inscription') }}" class="btn btn-primary btn-large">S'inscrire &raquo;</a></p>
+</div>
+{% endblock %}
+
+{% block body %}
+<h2>Serveurs Minecraft</h2>
+<p>Deux serveurs minecraft sont présents. Le premier avec le modpack privé: {{play1}}. Le second sert de serveur de test et de serveur pvp en certaines occasions: {{play2}}.</p>
+{%endblock%}

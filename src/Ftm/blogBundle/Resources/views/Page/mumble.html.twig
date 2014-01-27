@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}
+Feed the Marshmallow
+{%endblock%}
+
+{% block topContainer %}
+<div class="hero-unit">
+	<h1>Salut Marhsmallow!</h1>
+	<p>Bienvenue sur le site du serveur Feed the Marshmallow! Le serveur est accessible sur inscription.</p>
+	<p><a href="{{ path('ftm_inscription') }}" class="btn btn-primary btn-large">S'inscrire &raquo;</a></p>
+</div>
+{% endblock %}
+
+{% block body %}
+<h2>Serveur Mumble</h2>
+<p>adresse du serveur mumble: <a href="{{mumble}}">{{mumble}}</a></p>
+{%endblock%}

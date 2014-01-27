@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}
+Feed the Marshmallow
+{%endblock%}
+
+{% block topContainer %}
+<div class="hero-unit">
+	<h1>Salut Marhsmallow!</h1>
+	<p>Bienvenue sur le site du serveur Feed the Marshmallow! Le serveur est accessible sur inscription.</p>
+	<p><a href="{{ path('ftm_inscription') }}" class="btn btn-primary btn-large">S'inscrire &raquo;</a></p>
+</div>
+{% endblock %}
+
+{% block body %}
+<h2>Chat IRC</h2>
+<p>adresse du serveur irc: <a href="{{irc}}">{{irc}}</a></p>
+<iframe src="http://webchat.esper.net/?{% if pseudo!=null %}nick={{ pseudo }}&{%endif%}channels=ftmarshmallow&prompt=1" width="647" height="400"></iframe>
+{%endblock%}
