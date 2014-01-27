@@ -174,6 +174,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::contactAction',  '_route' => 'ftm_contact',);
         }
 
+        // ftm_stargate
+        if ($pathinfo === '/stargate') {
+            return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::stargateAction',  '_route' => 'ftm_stargate',);
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

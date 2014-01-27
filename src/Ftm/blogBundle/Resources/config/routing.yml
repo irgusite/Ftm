@@ -17,3 +17,7 @@ ftm_server:
 ftm_contact:
     pattern: /contact
     defaults: {_controller: FtmblogBundle:Page:contact}
+
+ftm_stargate:
+    pattern: /stargate
+    defaults: {_controller: FtmblogBundle:Page:stargate}

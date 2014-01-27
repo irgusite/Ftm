@@ -37,6 +37,7 @@ class appDevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         'ftm_mumble' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::mumbleAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/mumble',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'ftm_server' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::serverAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/server',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'ftm_contact' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::contactAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/contact',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'ftm_stargate' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::stargateAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/stargate',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
     );
 
     /**

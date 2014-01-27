@@ -34,4 +34,9 @@ class PageController extends Controller
   {
 	return $this->render("FtmblogBundle:Page:contact.html.twig");
   }
+  
+  public function stargateAction()
+  {
+	return $this->render("FtmblogBundle:Page:stargate.html.twig");
+  }
 }

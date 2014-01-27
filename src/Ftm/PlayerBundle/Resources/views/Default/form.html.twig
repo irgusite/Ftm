@@ -4,5 +4,13 @@
 
 {% block body %}
 <h2>Formulaire d'inscription</h2>
-
+{%if valid %}
+<p>Votre inscription a bien &eacute;t&eacute; prise en compte</p>
+{% endif %}
+<div class="well">
+  <form method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" class="btn btn-primary" />
+  </form>
+</div>
 {%endblock%}

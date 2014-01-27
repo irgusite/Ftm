@@ -8,23 +8,36 @@ use Ftm\PlayerBundle\Entity\Inscription;
 class PlayerController extends Controller
 {
     public function inscriptionAction()
-    {
-		$repo = $this->getDoctrine()->getManager();
-		
-		$uniqid = md5("radnomshit");//random md5 key
-		$validation="reussi";
+    {		
+		$uniqid = md5(microtime().rand());
+		$validation=false;
 		
 		$player = new Inscription;
-		$player->setPseudo("irgusite");
-		$player->setAge(21)
-			   ->setEmail("toto")
-			   ->setUniqid($uniqid)
-			   ->setPremod(false)
-			   ->setMotivation("blabla");
-			   
-		$repo->persist($player);
-		$repo->flush();
+		$formBuilder = $this->createFormBuilder($player);
 		
-        return $this->render('FtmPlayerBundle:Default:form.html.twig', array('validation'=>$validation));
+		$formBuilder
+				->add('pseudo',        'text')
+				->add('email',       'text')
+				->add('motivation',     'textarea')
+				->add('age',      'birthday');
+		$form = $formBuilder->getForm();
+
+		$request = $this->get('request');
+	
+		if ($request->getMethod() == 'POST') {
+		 
+		  $form->bind($request);
+		  
+		  if ($form->isValid()) {
+			
+			$repo = $this->getDoctrine()->getManager();
+			$repo->persist($player);
+			$repo->flush();
+			$validation = true;
+			return $this->render('FtmPlayerBundle:Default:form.html.twig', array('valid'=>$validation, 'form' => $form->createView(),));
+		  }
+		}
+		
+        return $this->render('FtmPlayerBundle:Default:form.html.twig', array('valid'=>$validation, 'form' => $form->createView(),));
     }
 }

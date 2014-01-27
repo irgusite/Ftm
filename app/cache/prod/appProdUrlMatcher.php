@@ -27,23 +27,48 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
         $context = $this->context;
         $request = $this->request;
 
-        // ftm_player_homepage
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'ftm_player_homepage');
-            }
-
-            return array (  '_controller' => 'Ftm\\PlayerBundle\\Controller\\DefaultController::indexAction',  '_route' => 'ftm_player_homepage',);
-        }
-
         // ftm_moderate_player
         if (0 === strpos($pathinfo, '/moderate/accept') && preg_match('#^/moderate/accept/(?P<uniqid>[a-z0-9]{32})$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'ftm_moderate_player')), array (  '_controller' => 'Ftm\\PlayerBundle\\Controller\\ModerationController::acceptAction',));
         }
 
-        // FTMHelloWorld
-        if ($pathinfo === '/hello-world') {
-            return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\BlogController::indexAction',  '_route' => 'FTMHelloWorld',);
+        // ftm_inscription
+        if ($pathinfo === '/inscription') {
+            return array (  '_controller' => 'Ftm\\PlayerBundle\\Controller\\PlayerController::inscriptionAction',  '_route' => 'ftm_inscription',);
+        }
+
+        // ftm_home
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'ftm_home');
+            }
+
+            return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\BlogController::indexAction',  '_route' => 'ftm_home',);
+        }
+
+        // ftm_irc
+        if ($pathinfo === '/irc') {
+            return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::ircAction',  '_route' => 'ftm_irc',);
+        }
+
+        // ftm_mumble
+        if ($pathinfo === '/mumble') {
+            return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::mumbleAction',  '_route' => 'ftm_mumble',);
+        }
+
+        // ftm_server
+        if ($pathinfo === '/server') {
+            return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::serverAction',  '_route' => 'ftm_server',);
+        }
+
+        // ftm_contact
+        if ($pathinfo === '/contact') {
+            return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::contactAction',  '_route' => 'ftm_contact',);
+        }
+
+        // ftm_stargate
+        if ($pathinfo === '/stargate') {
+            return array (  '_controller' => 'Ftm\\blogBundle\\Controller\\PageController::stargateAction',  '_route' => 'ftm_stargate',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

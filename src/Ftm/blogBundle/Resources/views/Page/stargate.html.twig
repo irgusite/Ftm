@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}
+Feed the Marshmallow
+{%endblock%}
+
+{% block topContainer %}
+<div class="hero-unit">
+	<h1>Salut Marhsmallow!</h1>
+	<p>Bienvenue sur le site du serveur Feed the Marshmallow! Le serveur est accessible sur inscription.</p>
+	<p><a href="{{ path('ftm_inscription') }}" class="btn btn-primary btn-large">S'inscrire &raquo;</a></p>
+</div>
+{% endblock %}
+
+{% block body %}
+<h2>Adresses des stargates</h2>
+<table class="table table-hover">
+<thead>
+	<tr><th>Lieu</th><th>Adresse</th></tr>
+</thead>
+<tbody>
+	<tr><td>Spawn</td><td>TDQZMVD</td></tr>
+</tbody>
+</table>
+{%endblock%}
