@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}
+Feed the Marshmallow
+{%endblock%}
+
+{% block topContainer %}
+{% endblock %}
+
+{% block body %}
+<h2>Téléchargements</h2>
+<table class="table table-hover">
+<thead>
+	<tr><th>Fichier</th><th>Lien</th></tr>
+</thead>
+<tbody>
+	<tr><td>World 1.5.2</td><td>soon</td></tr>
+	<tr><td>Soartex Ressource pack</td><td><a href="{{path('ftm_file_download', {'name': 'Soartex.zip'})}}">Lien</a></td></tr>
+</tbody>
+</table>
+{%endblock%}

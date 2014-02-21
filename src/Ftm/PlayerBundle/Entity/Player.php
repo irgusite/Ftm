@@ -2,6 +2,7 @@
 
 namespace Ftm\PlayerBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ftm\PlayerBundle\Entity\PlayerRepository")
  */
-class Player
+class Player implements UserInterface 
 {
     /**
      * @var integer
@@ -24,9 +25,9 @@ class Player
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudo", type="string", length=50)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
-    private $pseudo;
+    private $username;
 
     /**
      * @var string
@@ -48,10 +49,26 @@ class Player
      * @ORM\Column(name="age", type="integer")
      */
     private $age;
-	
+
+	/**
+	* @ORM\Column(name="password", type="string", length=255)
+	*/
+	private $password;
+
+	/**
+	* @ORM\Column(name="salt", type="string", length=255)
+	*/
+	private $salt;
+
+	/**
+	* @ORM\Column(name="roles", type="array")
+	*/
+	private $roles;
+
 	public function __construct()
 	{
-		$admin = false;
+		$this->admin = false;
+		$this->roles = array();
 	}
 
 
@@ -66,26 +83,26 @@ class Player
     }
 
     /**
-     * Set pseudo
+     * Set username
      *
-     * @param string $pseudo
+     * @param string $username
      * @return Player
      */
-    public function setPseudo($pseudo)
+    public function setUsername($username)
     {
-        $this->pseudo = $pseudo;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get pseudo
+     * Get username
      *
      * @return string 
      */
-    public function getPseudo()
+    public function getUsername()
     {
-        return $this->pseudo;
+        return $this->username;
     }
 
     /**
@@ -156,4 +173,44 @@ class Player
     {
         return $this->age;
     }
+	
+	public function setPassword($password)
+  {
+	if($password != null && $password != '')
+	{
+		$this->password = $password;
+	}
+    return $this;
+  }
+
+  public function getPassword()
+  {
+    return $this->password;
+  }
+
+  public function setSalt($salt)
+  {
+    $this->salt = $salt;
+    return $this;
+  }
+
+  public function getSalt()
+  {
+    return $this->salt;
+  }
+
+  public function setRoles(array $roles)
+  {
+    $this->roles = $roles;
+    return $this;
+  }
+
+  public function getRoles()
+  {
+    return $this->roles;
+  }
+
+  public function eraseCredentials()
+  {
+  }
 }

@@ -19,7 +19,9 @@ Feed the Marshmallow
 	<tr><th>Lieu</th><th>Adresse</th></tr>
 </thead>
 <tbody>
-	<tr><td>Spawn</td><td>TDQZMVD</td></tr>
+	{% for sg in portes %}
+	<tr><td>{{sg.location}}</td><td>{{sg.adress}}</td></tr>
+	{% endfor %}
 </tbody>
 </table>
 {%endblock%}

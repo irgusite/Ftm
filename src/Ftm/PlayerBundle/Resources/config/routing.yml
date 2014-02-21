@@ -1,9 +1,40 @@
 ftm_moderate_player:
-    pattern: /moderate/accept/{uniqid}
+    pattern: /admin/mod/{accept}/{uniqid}
     defaults: { _controller: FtmPlayerBundle:Moderation:accept }
     requirements:
         uniqid: ^[a-z0-9]{32}
 
+ftm_admin_list_demands:
+    pattern: /admin/demands
+    defaults: {_controller: FtmPlayerBundle:Moderation:list}
+    
+ftm_admin_whitelist_export:
+    pattern: /admin/whitelist.txt
+    defaults: {_controller: FtmPlayerBundle:Moderation:exportWL}
+    
+ftm_admin_player_info:
+    pattern: /admin/player/{username}
+    defaults: {_controller: FtmPlayerBundle:Player:playerAdmin }
+
 ftm_inscription:
     pattern: /inscription
     defaults: { _controller: FtmPlayerBundle:Player:inscription }
+
+ftm_player_info:
+    pattern: /player/infos
+    defaults: {_controller: FtmPlayerBundle:Player:playerInfo }
+    
+ftm_player_whitelist:
+    pattern: /player/whitelist
+    defaults: {_controller: FtmPlayerBundle:Moderation:whitelist }
+    
+login:
+    pattern: /login
+    defaults: {_controller: FtmPlayerBundle:Security:login}
+
+login_check:
+    pattern: /login_check
+    
+logout:
+    pattern: /logout
+    

@@ -1,8 +1,0 @@
-ftm_player:
-    resource: "@FtmPlayerBundle/Resources/config/routing.yml"
-    prefix:   /
-
-ftmblog:
-    resource: "@FtmblogBundle/Resources/config/routing.yml"
-    prefix:   /
-

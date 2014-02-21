@@ -5,7 +5,15 @@
 {% block body %}
 <h2>Formulaire d'inscription</h2>
 {%if valid %}
-<p>Votre inscription a bien &eacute;t&eacute; prise en compte</p>
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Bravo!</strong> Ta candidature a été enregistrée
+</div>
+{%elseif demand %}
+<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Du calme!</strong> Ta candidature fait déjà l'objet d'une demande.
+</div>
 {% endif %}
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>

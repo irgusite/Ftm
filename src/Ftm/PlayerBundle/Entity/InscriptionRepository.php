@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class InscriptionRepository extends EntityRepository
 {
+	//inscription exists
+	public function exists($pseudo)
+	{
+		$resultats = $this->_em->createQueryBuilder()
+								  ->select('COUNT(a)')
+								  ->from($this->_entityName, 'a')
+								  ->where('a.pseudo=:pseudo')
+								  ->setParameter('pseudo', $pseudo)
+								  ->getQuery()
+								  ->getSingleScalarResult();
+
+		
+		return $resultats>0?true:false;
+	}
 }

@@ -19,5 +19,15 @@ ftm_contact:
     defaults: {_controller: FtmblogBundle:Page:contact}
 
 ftm_stargate:
-    pattern: /stargate
-    defaults: {_controller: FtmblogBundle:Page:stargate}
+    pattern: /stargate.{format}
+    defaults: {_controller: FtmblogBundle:Page:stargate, format: html}
+    requirements:
+        format: html|txt
+
+ftm_download:
+    pattern: /player/download
+    defaults: {_controller: FtmblogBundle:Page:download}
+    
+ftm_file_download:
+    pattern: /player/download/{name}
+    defaults: {_controller: FtmblogBundle:Page:dlFichier}
