@@ -18,14 +18,14 @@ class PageController extends Controller
   }
   public function mumbleAction()
   {
-	$adressMumble = 'mumble.ftmarshmallow.com';
+	$adressMumble = 'ts.ftmarshmallow.com';
 	return $this->render("FtmblogBundle:Page:mumble.html.twig", array('mumble'=>$adressMumble));
   }
   
   public function serverAction()
   {
-	$adressMinecraft1 = 'play.ftmarshmallow.com:10395';
-	$adressMinecraft2 = 'play2.ftmarshmallow.com:10395';
+	$adressMinecraft1 = 'event.ftmarshmallow.com';
+	$adressMinecraft2 = 'play2.ftmarshmallow.com';
 	
 	return $this->render("FtmblogBundle:Page:server.html.twig", array('play1'=>$adressMinecraft1, 'play2'=>$adressMinecraft2));
   }
@@ -48,6 +48,11 @@ class PageController extends Controller
   public function downloadAction()
   {
 	return $this->render("FtmblogBundle:Page:download.html.twig");
+  }
+  
+  public function dynmapAction()
+  {
+	return $this->render("FtmblogBundle:Page:dynmap.html.twig");
   }
   
   public function dlFichierAction($name)

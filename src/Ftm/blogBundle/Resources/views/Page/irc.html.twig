@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {%block title %}
-Feed the Marshmallow
+FTM - irc
 {%endblock%}
 
 {% block topContainer %}
@@ -13,7 +13,15 @@ Feed the Marshmallow
 {% endblock %}
 
 {% block body %}
-<h2>Chat IRC</h2>
-<p>adresse du serveur irc: <a href="{{irc}}">{{irc}}</a></p>
-<iframe src="http://webchat.esper.net/?{% if pseudo!=null %}nick={{ pseudo }}&{%endif%}channels=ftmarshmallow&prompt=1" width="647" height="400"></iframe>
+<div class="container-fluid">
+	<div class="row" id="personal">	
+		<div class="col-md-12">
+			<h2>Chat IRC</h2>
+			<p>adresse du serveur irc: <a href="{{irc}}">{{irc}}</a></p>
+			<div class="embed-responsive embed-responsive-4by3">
+				<iframe src="http://webchat.esper.net/?{% if pseudo!=null %}nick={{ pseudo }}&{%endif%}channels=ftmarshmallow&prompt=1" class="embed-responsive-item"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
 {%endblock%}

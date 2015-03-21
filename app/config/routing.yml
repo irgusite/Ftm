@@ -1,0 +1,12 @@
+ftm_minecraft:
+    resource: "@FtmMinecraftBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ftm_player:
+    resource: "@FtmPlayerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ftmblog:
+    resource: "@FtmblogBundle/Resources/config/routing.yml"
+    prefix:   /
+

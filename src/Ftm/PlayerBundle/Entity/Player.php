@@ -23,6 +23,13 @@ class Player implements UserInterface
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="connected", type="integer")
+     */
+    private $connected;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
@@ -103,6 +110,29 @@ class Player implements UserInterface
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Set connected
+     *
+     * @param string $username
+     * @return Player
+     */
+    public function setConnected($connected)
+    {
+        $this->connected = $connected;
+
+        return $this;
+    }
+
+    /**
+     * Get connected
+     *
+     * @return string 
+     */
+    public function getConnected()
+    {
+        return $this->connected;
     }
 
     /**

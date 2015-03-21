@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}Inscriptions{%endblock%}
+
+{% block body %}
+<h2>Mise en place du serveur event</h2>
+
+<form method="post" role="form" {{ form_enctype(form) }}>
+	<div class="form-group">
+		{{form_label(form.version, 'Version')}}
+		{{ form_widget(form.version,{'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		{{form_label(form.map, 'Map')}}
+		{{ form_widget(form.map,{'attr': {'class': 'form-control'}}) }}
+	</div>
+	{{ form_rest(form) }}
+	<button type="submit" class="btn btn-default">Soumettre</button>
+</form>
+{%endblock%}

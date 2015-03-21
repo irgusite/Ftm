@@ -13,6 +13,7 @@ class PlayerController extends Controller
 		$uniqid = md5(microtime().rand());
 		$validation=false;//tout c'est bien passe
 		$demand=false; //fait deja l'etat d'une demande
+		$minimumAge = 13;
 		
 		$player = new Inscription;
 		
@@ -22,7 +23,7 @@ class PlayerController extends Controller
 					 ->getRepository('FtmPlayerBundle:Inscription');
 		
 		$formBuilder
-				->add('pseudo',        'text')
+				->add('pseudo',        'text', array('attr'=>array('autofocus'=>'autofocus')))
 				->add('email',       'text')
 				->add('motivation',     'textarea')
 				->add('age',      'integer');
@@ -39,11 +40,32 @@ class PlayerController extends Controller
 		  if ($form->isValid() && !$demand) 
 		  {
 			$repo = $this->getDoctrine()->getManager();
-			$player->setPremod(($player->getAge()<15?true:false));
+			$player->setPremod(($player->getAge()<$minimumAge?true:false));
 			$player->setUniqid($uniqid);
 			$repo->persist($player);
 			$repo->flush();
 			$validation = true;
+			
+			if($player->getAge()<$minimumAge)
+			{
+				$mailer = $this->get('mailer');
+
+				$message = \Swift_Message::newInstance()
+				  ->setSubject('Inscription FTM!')
+				  ->setFrom('staff@ftmarshmallow.com')
+				  ->setTo($player->getEmail())
+				  ->setBody($this->renderView('FtmPlayerBundle:Moderation:refuse.txt.twig', array('name' => $player->getPseudo())));
+
+				$mailer->send($message);
+			}
+			$mailer = $this->get('mailer');
+		 	$doby = \Swift_Message::newInstance()
+				->setSubject('Nouvelle inscription')
+				->setFrom('staff@ftmarshmallow.com')
+				->setTo('iamadena.ftm@gmail.com')
+				->setBody($this->renderView('FtmPlayerBundle:Moderation:doby.txt.twig', array('name' => $player->getPseudo(), 'motivation' => $player->getMotivation())));
+
+			$mailer->send($doby);
 			return $this->render('FtmPlayerBundle:Default:form.html.twig', array('valid'=>$validation, 'demand'=>$demand, 'form' => $form->createView()));
 		  }
 		}
@@ -142,13 +164,13 @@ class PlayerController extends Controller
         return $this->render('FtmPlayerBundle:Player:info.html.twig', array('valid'=>$validation, 'form' => $form->createView(), 'username'=>$username));
 	}
 	
-	public function generatePassAction()
+	public function generatePassAction($name)
 	{
 		$repository = $this->getDoctrine()
 						   ->getManager()
 						   ->getRepository('FtmPlayerBundle:Player');
 		
-		$withoutPass = $repository->findByUsername('IamAdena');
+		$withoutPass = $repository->findByUsername($name);
 		
 		$repo = $this->getDoctrine()->getManager();
 		$factory = $this->get('security.encoder_factory');
@@ -169,12 +191,83 @@ class PlayerController extends Controller
 			  ->setSubject('Salut Marshmallow!')
 			  ->setFrom('staff@ftmarshmallow.com')
 			  ->setTo($player->getEmail())
-			  ->setBody($this->renderView('FtmPlayerBundle:Moderation:accept.txt.twig', array('name' => $player->getUsername(), 'password'=>$passwordUncrypt)));
+			  ->setBody($this->renderView('FtmPlayerBundle:Moderation:pass.txt.twig', array('name' => $player->getUsername(), 'password'=>$passwordUncrypt)));
 
 			$mailer->send($message);
 			
 			$repo->persist($player);
 			$repo->flush();
 		}
+		$this->get('session')->getFlashBag()->add('success','Mot de passe réinitialisé!');
+		return $this->redirect($this->generateUrl('ftm_player_whitelist'));
+	}
+	
+	public function sendMailAction()
+	{
+	
+		$data = array();
+		$form = $this->createFormBuilder($data)
+			->add('Title', 'text')
+			->add('Text', 'textarea')
+			->getForm();
+			
+		$request = $this->get('request');
+
+		if ($request->isMethod('POST')) {
+			$form->bind($request);
+			
+			$data = $form->getData();
+			$repo = $this->getDoctrine()->getManager()->getRepository('FtmPlayerBundle:Player');
+			$playerList = $repo->findByAdmin(0);
+		
+			foreach($playerList as $player)
+			{	
+					$mailer = $this->get('mailer');
+				try{
+					$message = \Swift_Message::newInstance()
+					->setCharset('iso-8859-2')
+				  	->setSubject('MarshmaNews!')
+				  	->setFrom('staff@ftmarshmallow.com')
+				  	->setTo($player->getEmail())
+				  	->setBody($this->renderView('FtmPlayerBundle:Player:news.txt.twig', array('name' => $player->getUsername(),
+																								'title'=>$data['Title'], 
+																								'text'=>$data['Text'])));
+
+						$mailer->send($message);
+					}
+				catch(Exception $e){
+						pass;
+					}
+			}
+			
+		}
+		
+		return $this->render('FtmPlayerBundle:Player:mailer.html.twig', array('form'=>$form->createView()));
+		
+	}
+	
+	public function getWlNbAction()
+	{
+		$repository = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('FtmPlayerBundle:Player');
+						   
+		return $this->render("FtmPlayerBundle:Moderation:number.html.twig", array('number'=>$repository->getCount()));
+	}
+	
+	public function deletePlayerAction($id)
+	{
+		if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        	throw new AccessDeniedException();
+    	}
+		$repo = $this->getDoctrine()->getManager()->getRepository("FtmPlayerBundle:Player");
+
+		$player = $repo->findOneById($id);			
+		
+		$em = $this->getDoctrine()->getManager();
+		$em->remove($player);
+		$em->flush();
+		
+		return $this->redirect($this->generateUrl('ftm_player_whitelist'));
 	}
 }

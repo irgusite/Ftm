@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}Mail{%endblock%}
+
+{% block body %}
+<h2>Mail à tout les joueurs</h2>
+
+
+  <form method="post" {{ form_enctype(form) }}>
+	<div class="form-group">
+		{{form_label(form.Title, 'Objet')}}
+		{{ form_widget(form.Title,{'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group" role="form">
+		{{form_label(form.Text, 'Message')}}
+		{{ form_widget(form.Text,{'attr': {'class': 'form-control'}}) }}
+	</div>
+    {{ form_widget(form) }}
+    <input type="submit" class="btn btn-primary" />
+  </form>
+
+{%endblock%}

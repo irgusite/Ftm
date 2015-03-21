@@ -31,3 +31,7 @@ ftm_download:
 ftm_file_download:
     pattern: /player/download/{name}
     defaults: {_controller: FtmblogBundle:Page:dlFichier}
+
+ftm_dynmap:
+    pattern: /dynmap
+    defaults: {_controller: FtmblogBundle:Page:dynmap}

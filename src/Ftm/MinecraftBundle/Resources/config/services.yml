@@ -1,0 +1,4 @@
+services:
+#    ftm_minecraft.example:
+#        class: Ftm\MinecraftBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

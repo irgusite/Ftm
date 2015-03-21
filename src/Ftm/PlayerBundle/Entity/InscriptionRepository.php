@@ -26,4 +26,30 @@ class InscriptionRepository extends EntityRepository
 		
 		return $resultats>0?true:false;
 	}
+	
+	public function getNewCount()
+	{
+		$resultat = $this->_em->createQueryBuilder()
+								  ->select('COUNT(a)')
+								  ->from($this->_entityName, 'a')
+								  ->where('a.premod=0')
+								  ->getQuery()
+								  ->getSingleScalarResult();
+
+		
+		return $resultat;
+	}
+	
+	public function getIgnoredCount()
+	{
+		$resultat = $this->_em->createQueryBuilder()
+								  ->select('COUNT(a)')
+								  ->from($this->_entityName, 'a')
+								  ->where('a.premod=1')
+								  ->getQuery()
+								  ->getSingleScalarResult();
+
+		
+		return $resultat;
+	}
 }

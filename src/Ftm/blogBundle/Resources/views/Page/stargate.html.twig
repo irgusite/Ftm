@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {%block title %}
-Feed the Marshmallow
+FTM - Stargate
 {%endblock%}
 
 {% block topContainer %}
@@ -13,15 +13,21 @@ Feed the Marshmallow
 {% endblock %}
 
 {% block body %}
-<h2>Adresses des stargates</h2>
-<table class="table table-hover">
-<thead>
-	<tr><th>Lieu</th><th>Adresse</th></tr>
-</thead>
-<tbody>
-	{% for sg in portes %}
-	<tr><td>{{sg.location}}</td><td>{{sg.adress}}</td></tr>
-	{% endfor %}
-</tbody>
-</table>
+<div class="container-fluid">
+	<div class="row" id="personal">	
+		<div class="col-md-12">
+			<h2>Adresses des stargates</h2>
+			<table class="table table-hover">
+				<thead>
+					<tr><th>Lieu</th><th>Adresse</th></tr>
+				</thead>
+				<tbody>
+					{% for sg in portes %}
+						<tr><td>{{sg.location}}</td><td>{{sg.adress}}</td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 {%endblock%}

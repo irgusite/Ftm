@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlayerRepository extends EntityRepository
 {
+	public function getCount()
+	{
+		$resultat = $this->_em->createQueryBuilder()
+								  ->select('COUNT(a)')
+								  ->from($this->_entityName, 'a')
+								  ->getQuery()
+								  ->getSingleScalarResult();
+
+		
+		return $resultat;
+	}
 }

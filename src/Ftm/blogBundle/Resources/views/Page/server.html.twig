@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {%block title %}
-Feed the Marshmallow
+FTM - Serveurs
 {%endblock%}
 
 {% block topContainer %}
@@ -13,6 +13,23 @@ Feed the Marshmallow
 {% endblock %}
 
 {% block body %}
-<h2>Serveurs Minecraft</h2>
-<p>Deux serveurs minecraft sont présents. Le premier avec le modpack privé: {{play1}}. Le second sert de serveur de test et de serveur pvp en certaines occasions: {{play2}}.</p>
+<div class="container-fluid">
+	<div class="row" id="personal">	
+		<div class="col-md-12">
+			<h2>Serveurs Minecraft</h2>
+			<p>Les deux serveurs sont accessibles aux membres.<br/>Voici les adresses et les specifications:</p>
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr><th>Serveur</th><th>IP</th><th>Version</th><th>Modpack</th><th>Changelog</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>Event</td><td>event.ftmarshmallow.com</td><td>selon l'event</td><td>selon l'event</td><td>bon ben comme avant!</td></tr>
+						<tr><td>Moddé</td><td>play.ftmarshmallow.com</td><td>1.7.10</td><td>Pack Privé</td><td>Voir les news</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 {%endblock%}

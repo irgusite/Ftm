@@ -1,0 +1,148 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}FTM - Controles{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row" id="personal">	
+			<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" id="personal">
+				<h2>Contr&ocirc;les Modd&eacute;<span class="loader loaderModded glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
+					<p id="etatMod">{{etatMod}}</p>
+					<table class="table">
+						<tr>
+							<td><button id="startModded" type="button" class="btn btn-success">Start</button></td>
+							<td><button id="stopModded" type="button" class="btn btn-warning">Stop</button></td>
+							<td><button id="killModded" type="button" class="btn btn-danger">Kill</button></td>
+							<td><button id="statusModded" type="button" class="btn btn-info">Status</button></td>
+						</tr>
+					</table>
+			</div>
+			<div class="col-lg-5 col-md-5 col-md-offset-2 col-lg-offset-2" id="personal">
+				<h2>Contr&ocirc;les Vanilla <span class="loader loaderVanilla glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
+					<p id="etatVanilla">{{etatVanilla}}</p>
+
+					<table class="table">
+						<tr>
+							<td><button id="startVanilla" type="button" class="btn btn-success">Start</button></td>
+							<td><button id="stopVanilla" type="button" class="btn btn-warning">Stop</button></td>
+							<td><button id="killVanilla" type="button" class="btn btn-danger">Kill</button></td>
+							<td><button id="statusVanilla" type="button" class="btn btn-info">Status</button></td>
+						</tr>
+					</table>
+					<h2>Choix Map Event</h2>
+					<form method="post" role="form" {{ form_enctype(form) }}>
+						<div class="form-group">
+							{{form_label(form.version, 'Version')}}
+							{{ form_widget(form.version,{'attr': {'class': 'form-control'}}) }}
+						</div>
+						<div class="form-group">
+							{{form_label(form.map, 'Map')}}
+							{{ form_widget(form.map,{'attr': {'class': 'form-control'}}) }}
+						</div>
+						{{ form_rest(form) }}
+						<button type="submit" class="btn btn-default">Soumettre</button>
+					</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".loader").hide();
+
+	var tid = setInterval(status, 60000);
+	var loader = 'minecraft';
+
+	function status(){
+		$.post("{{path('ftm_ajax_server_controll')}}", 
+				{server: 'ftm', action: 'status'},
+				function(data){
+					$("#etatMod").text(data.serverStatus);
+					//alert(command);
+				},
+				'json'
+			   );
+		$.post("{{path('ftm_ajax_server_controll')}}", 
+				{server: 'minecraft', action: 'status'},
+				function(data){
+					$("#etatVanilla").text(data.serverStatus);
+					//alert(command);
+				},
+				'json'
+			   );
+	}
+
+	$(":button:not(:submit)").click(function(){
+		switch(this.id)
+		{
+			case 'startVanilla':
+				var serverName = 'minecraft';
+				var command = 'start';
+				loader = 'minecraft';
+				break;
+			case 'stopVanilla':
+			 	var serverName = 'minecraft';
+			 	var command = 'stop';
+				loader = 'minecraft';
+			 	break;
+			case 'killVanilla':
+				var serverName = 'minecraft';
+				var command = 'kill';
+				loader = 'minecraft';
+				break;
+			case 'statusVanilla':
+				var serverName = 'minecraft';
+				var command = 'status';
+				loader = 'minecraft';
+				break;
+			case 'statusModded':
+				var serverName = 'ftm';
+				var command = 'status';
+				loader = 'ftm';
+				break;
+			case 'startModded':
+				var serverName = 'ftm';
+				var command = 'start';
+				loader = 'ftm';
+				break;
+			case 'stopModded':
+				var serverName = 'ftm';
+				var command = 'stop';
+				loader = 'ftm';
+				break;
+			case 'killModded':
+				var serverName = 'ftm';
+				var command = 'kill';
+				loader = 'ftm';
+				break;
+		}
+		$.post("{{path('ftm_ajax_server_controll')}}", 
+				{server: serverName, action: command},
+				function(data){
+					if(serverName == 'minecraft'){
+						$("#etatVanilla").text(data.serverStatus);
+					}
+					else if(serverName == 'ftm'){
+						$("#etatMod").text(data.serverStatus);
+					}
+				},
+				'json'
+			   );
+		
+	});
+		$(document).ajaxStart(function(){
+			if(loader == 'minecraft')
+				$(".loaderVanilla").show();
+			else
+				$(".loaderModded").show();
+		});
+
+		$(document).ajaxComplete(function(){
+			$(".loader").hide();
+		});
+});
+</script>
+{% endblock %}

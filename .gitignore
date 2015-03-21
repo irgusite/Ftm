@@ -1,0 +1,9 @@
+/web/bundles/
+/app/bootstrap*
+/app/cache/*
+/app/logs/*
+/vendor/
+/app/config/parameters.yml
+/access.log
+/error.log
+/web/app_dev.php

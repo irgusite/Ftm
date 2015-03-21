@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {%block title %}
-Feed the Marshmallow
+FTM - TeamSpeak
 {%endblock%}
 
 {% block topContainer %}
@@ -13,6 +13,12 @@ Feed the Marshmallow
 {% endblock %}
 
 {% block body %}
-<h2>Serveur Mumble</h2>
-<p>adresse du serveur mumble: <a href="{{mumble}}">{{mumble}}</a></p>
+<div class="container-fluid">
+	<div class="row" id="personal">	
+		<div class="col-md-12">
+			<h2>Serveur TeamSpeak3</h2>
+			<p>adresse du serveur TeamSpeak3: <a href="{{mumble}}">{{mumble}}</a></p>
+		</div>
+	</div>
+</div>
 {%endblock%}

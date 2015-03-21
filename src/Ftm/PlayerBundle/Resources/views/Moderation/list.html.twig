@@ -9,38 +9,59 @@ Demande the Marshmallow
 {% endblock %}
 
 {% block body %}
+<div class="container-fluid">
+	<div class="row" id="personal">	
+		<div class="col-md-12">
 
-<h2>Liste des inscriptions</h2>
+			<h2>Liste des inscriptions</h2>
 
-{%if notfound %}
-<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Oups!</strong> Ce joueur n'as pas été trouvé
-{%endif%}
+			{%if notfound %}
+			<div class="alert alert-error">
+			    <button type="button" class="close" data-dismiss="alert">&times;</button>
+			    <strong>Oups!</strong> Ce joueur n'as pas été trouvé
+			</div>
+			{%endif%}
 
-<table class="table table-hover">
-<thead>
-	<tr><th>Pseudo</th><th>Age</th><th>Motivation</th><th>Tete</th><th>moderation</th></tr>
-</thead>
-<tbody>
-	{% for inscrit in liste %}
-	<tr><td>{{inscrit.pseudo}}</td><td>{{inscrit.age}}</td><td>{{inscrit.motivation}}</td><td><img src="https://minotar.net/avatar/{{inscrit.pseudo}}/24"></td>
-		<td><a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:1})}}"><i class="icon-ok"></i></a> <a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:0})}}"><i class="icon-remove"></i></a></td></tr>
-	{% endfor %}
-</tbody>
-</table>
-<h2>Liste des refusés</h2>
-<table class="table table-hover">
-<thead>
-	<tr><th>Pseudo</th><th>Age</th><th>Motivation</th><th>Tete</th><th>Accepter</th></tr>
-</thead>
-<tbody>
-	{% for refuse in refus %}
-	{% if refuse.pseudo != ''%}
-	<tr><td>{{refuse.pseudo}}</td><td>{{refuse.age}}</td><td>{{refuse.motivation}}</td><td><img src="https://minotar.net/avatar/{{refuse.pseudo}}/24"></td>
-		<td>{%if refuse.uniqid != 0%}<a href="{{path('ftm_moderate_player',{uniqid: refuse.uniqid, accept:1})}}"><i class="icon-ok"></i></a>{%endif%}</td></tr>
-	{%endif%}
-	{% endfor %}
-</tbody>
-</table>
+			<table class="table">
+				<thead>
+					<tr><th>Pseudo</th><th>Age</th><th>Motivation</th><th>Tete</th><th>moderation</th></tr>
+				</thead>
+				<tbody>
+					{% for inscrit in liste %}
+					<tr>
+						<td>{{inscrit.pseudo}}</td>
+						<td>{{inscrit.age}}</td>
+						<td>{{inscrit.motivation}}</td>
+						<td><img src="https://minotar.net/avatar/{{inscrit.pseudo}}/24"></td>
+						<td><a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:1})}}">
+							<span class="glyphicon glyphicon-plus"></span></a> 
+							<a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:0})}}">
+							<span class="glyphicon glyphicon-minus"></span></a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<h2>Liste des refusés <span class="badge badge-warning">{{nbRefus}}</span></h2>
+
+			<table class="table">
+				<thead>
+					<tr><th>Pseudo</th><th>Age</th><th>Motivation</th><th>Tete</th><th>Accepter</th></tr>
+				</thead>
+				<tbody>
+					{% for refuse in refus %}
+					{% if refuse.pseudo != ''%}
+					<tr>
+						<td>{{refuse.pseudo}}</td>
+						<td>{{refuse.age}}</td>
+						<td>{{refuse.motivation}}</td>
+						<td><img src="https://minotar.net/avatar/{{refuse.pseudo}}/24"></td>
+						<td><a href="{{path('ftm_moderate_player',{uniqid: refuse.uniqid, accept:1})}}"><span class="glyphicon glyphicon-plus"></span></a></td></tr>
+					{%endif%}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 {%endblock%}

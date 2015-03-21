@@ -1,0 +1,9 @@
+ftm_server_controll:
+    path:     /admin/servercontroll
+    defaults: { _controller: FtmMinecraftBundle:Main:serverControll }
+
+ftm_ajax_server_controll:
+    path: /ajax/controll
+    defaults: { _controller: FtmMinecraftBundle:Main:ajaxCommand}
+    requirements:
+        _method: POST

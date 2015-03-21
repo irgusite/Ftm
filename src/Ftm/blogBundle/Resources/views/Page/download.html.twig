@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {%block title %}
-Feed the Marshmallow
+FTM - Downloads
 {%endblock%}
 
 {% block topContainer %}
@@ -9,13 +9,17 @@ Feed the Marshmallow
 
 {% block body %}
 <h2>Téléchargements</h2>
-<table class="table table-hover">
+<table class="table">
 <thead>
 	<tr><th>Fichier</th><th>Lien</th></tr>
 </thead>
 <tbody>
-	<tr><td>World 1.5.2</td><td>soon</td></tr>
-	<tr><td>Soartex Ressource pack</td><td><a href="{{path('ftm_file_download', {'name': 'Soartex.zip'})}}">Lien</a></td></tr>
+	<tr><td>Save Vanilla 15.9.14</td><td><a href="http://ftmarshmallow.com/files/Play1.omgserv.com_15.9.14.zip">Lien</a></td></tr>
+	{#<tr><td>Pack V1.1</td><td><a href="http://ftmarshmallow.com/files/pack.zip">Lien</a></td></tr>#}
+	{#<tr><td>MAJ V1.1</td><td><a href="http://ftmarshmallow.com/files/config.zip">Lien</a></td></tr>#}
+	{#<tr><td><s>Pack V3.2</s></td><td><a href="http://ftmarshmallow.com/files/packv3.2.zip">Lien</a></td></tr>#}
+	{#<tr><td><s>MAJ V3.2.1</s></td><td><a href="http://ftmarshmallow.com/files/packv3.2.1.zip">Lien</a></td></tr>#}
+	<tr><td>Pack V3.2.2</td><td><a href="http://ftmarshmallow.com/files/packv3.2.2.zip">Lien</a></td></tr>
 </tbody>
 </table>
 {%endblock%}

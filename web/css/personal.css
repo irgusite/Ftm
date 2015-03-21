@@ -1,0 +1,60 @@
+body{
+	background-image: url("img/background.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	margin: -20px;
+}
+
+
+#personal p, #personal h2, #personal h4, #personal ul{
+	color:white;
+	text-align: center;
+}
+#personal table .success,#personal table .info,#personal table .warning{
+	color: black;
+
+}
+#personal h4{
+	text-align:center;
+}
+#personal p{
+	margin-bottom:30px;
+}
+#personal form{
+	margin-bottom: 30px;
+	color:white;
+}
+#personal table{
+	color:white;
+}
+#personal .col-md-12{
+	background-color: rgba(0,0,0,0.5);
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-align:left;
+}
+
+.col-lg-3#personal, .col-md-3#personal, .col-md-5#personal, .col-lg-5#personal{
+	background-color: rgba(0,0,0,0.5);
+	-moz-border-radius: 5px;
+	border-radius: 5px
+}
+
+footer{
+	color:white;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}

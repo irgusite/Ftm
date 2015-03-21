@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}
+FTM - Dynmap
+{%endblock%}
+
+{% block topContainer %}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" id="personal">	
+		<div class="col-md-12">
+			{#
+			<h2>Dynmap Vanilla</h2>
+			<iframe src="http://play.ftmarshmallow.com:40137" height=768 width=1024></iframe> #}
+			
+			<h2>Dynmap FTB</h2>
+			<p>Tu veux discuter avec nous? Viens sur le <a href="{{path('ftm_irc')}}">chat IRC</a></p>
+			<div class="embed-responsive embed-responsive-16by9">
+				<iframe src="http://ftmarshmallow.com:8123" class="embed-responsive-item"></iframe>
+			</div>
+			<a href="http://play2.ftmarshmallow.com:40139">Grand écran</a>
+		</div>
+	</div>
+</div>
+{%endblock%}

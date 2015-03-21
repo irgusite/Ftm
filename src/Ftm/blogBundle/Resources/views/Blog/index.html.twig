@@ -1,20 +1,43 @@
 {% extends "::base.html.twig" %}
 
 {%block title %}
-Feed the Marshmallow
+Ftm - Le serveur
 {%endblock%}
 
-{% block topContainer %}
-<div class="hero-unit .visible-desktop">
-        <h1>Salut Marhsmallow!</h1>
-        <p>Bienvenue sur le site du serveur Feed the Marshmallow! Le serveur est accessible sur inscription.</p>
-        <p><a href="{{ path('ftm_inscription') }}" class="btn btn-primary btn-large">S'inscrire &raquo;</a></p>
-      </div>
-{% endblock %}
-
 {% block body %}
-<h2>News du serveur</h2>
-<h4>Partie membre disponible et autre</h4>
-<p>La partie membre est disponible, vous recevrez votre mot de passe dans les jours qui suivent. <br> Autre chose aussi, le serveur crash de temps en temps sans raison, si ca arrive, envoyez un mail a staff (at) ftmarshmallow.com pour qu'on le redemarre ;)</p>
+	<div class="container-fluid">
+		<div class="row" id="personal">	
+			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" id="personal">
+				<h2>News</h2>
+					{% for New in News %}
+						<h4>{{New.title}}</h4>
+						<p>{{New.text|raw|nl2br}}</p>
+					{% endfor %}
+			</div>
+			{% if true == true %}
+			<div class="col-lg-6 col-md-6 hidden-xs hidden-sm">
+				<div class="embed-responsive embed-responsive-4by3">
+					<iframe src="http://ftmarshmallow.com:8123" class="embed-responsive-item"></iframe>
+				</div>
+				<br>
+				<div class="embed-responsive embed-responsive-16by9 ">
+					<iframe src="http://webchat.esper.net/?channels=ftmarshmallow&prompt=1" class="embed-responsive-item"></iframe>
+				</div>
+			</div>
 
+			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm" id="personal">
+				<h2>Twitter</h2>
+				<a 
+				class="twitter-timeline" 
+				href="https://twitter.com/FTMarshmallow" 
+				data-widget-id="548226244270362624"
+				data-chrome="transparent"
+				data-theme="dark"
+				>Tweets de @FTMarshmallow</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+			</div>
+			{% endif %}
+		</div>
+	</div>
 {%endblock%}
