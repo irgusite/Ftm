@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Ftm\blogBundle\FtmblogBundle(),
             new Ftm\PlayerBundle\FtmPlayerBundle(),
+            new Ftm\MinecraftBundle\FtmMinecraftBundle(),
+	    new SunCat\MobileDetectBundle\MobileDetectBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
