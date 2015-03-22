@@ -7,3 +7,4 @@
 /access.log
 /error.log
 /web/app_dev.php
+/web/white-list.txt
