@@ -7,86 +7,80 @@
 	
     {% block stylesheets %}
       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+      <link rel="stylesheet" href="{{ asset('css/personal.css') }}" type="text/css" />
 	  <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
       }
     </style>
-      <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}" type="text/css" />
+      {#<link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}" type="text/css" />#}
     {% endblock %}
   </head>
   
   
     <body>
-		 <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="{{ path('ftm_home') }}">FTM</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="{{ path('ftm_home') }}">Home</a></li>
-              <li><a href="{{ path('ftm_inscription') }}">Inscription</a></li>
-              <li><a href="{{ path('ftm_contact')}}">Contact</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Serveur <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{{ path('ftm_server') }}">Minecraft</a></li>
-                  <li><a href="{{ path('ftm_irc') }}">IRC</a></li>
-                  <li><a href="{{ path('ftm_mumble') }}">Mumble</a></li>
-				  <li><a href="{{ path('ftm_dynmap') }}">Dynmap</a></li>
-				  <li><a href="{{path('ftm_player_whitelist')}}">La whitelist {% if is_granted('ROLE_ADMIN') %}{{render(controller('FtmPlayerBundle:Player:getWlNb'))}}{%endif%}</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Modpack</li>
-                  <li><a href="#">Les mods</a></li>
-				  <li><a href="{{path('ftm_stargate')}}">Les adresse stargate</a></li>
-                </ul>
-              </li>
-			  {% if is_granted('ROLE_PLAYER') %}
-			  <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Membres <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{{path('ftm_download')}}">T&eacute;l&eacute;chargements</a></li>
-				  
-                  <li class="divider"></li>
-                  <li class="nav-header">Utilisateur - <img src="https://minotar.net/avatar/{{app.user.username}}/16"></li>
-                  <li><a href="{{path('ftm_player_info')}}">Mes infos</a></li>
-				  <li><a href="{{path('logout')}}">Logout</a></li>
-                </ul>
-              </li>
-			  {%endif%}
-			  {% if is_granted('ROLE_ADMIN') %}
-			  <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admins <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{{path('ftm_admin_list_demands')}}">Demandes {{render(controller('FtmPlayerBundle:Moderation:getInscriptionNB'))}}</a></li>
-				  <li><a href="{{path('ftm_admin_upload_wl')}}">Uploader la whitelist</a></li>
-                  <li><a href="{{path('ftm_admin_mail')}}">Mail</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">A definir - <img src="https://minotar.net/avatar/{{app.user.username}}/16"></li>
-                  <li><a href="#">Mes infos</a></li>
-				  <li><a href="{{path('logout')}}">Logout</a></li>
-                </ul>
-              </li>
-			  {%endif%}
-			  {% if is_granted('ROLE_PLAYER') %}
-			<li class="pull-right"><img src="https://minotar.net/avatar/{{app.user.username}}/40">{#https://minotar.net/#}</li>
-			{%endif%}
-            </ul>
-            <form class="navbar-form pull-right" action="{{ path('login_check') }}" method="post">
-              <input class="span2" type="text" id="username" name="_username" placeholder="Pseudo">
-              <input class="span2" type="password" id="password" name="_password" placeholder="Password">				
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
+		 <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ path('ftm_home') }}">FTM</a>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{{ path('ftm_home') }}">Home</a></li>
+        <li><a href="http://forum.ftmarshmallow.com" target="_blank">Forum</a></li>
+        <li><a href="{{ path('ftm_inscription') }}">Inscription</a></li>
+        <li><a href="{{ path('ftm_contact')}}">Contact</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Serveur <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ path('ftm_server') }}">Minecraft</a></li>
+            <li><a href="{{ path('ftm_irc') }}">IRC</a></li>
+            <li><a href="{{ path('ftm_mumble') }}">TeamSpeak</a></li>
+            <li><a href="{{ path('ftm_dynmap') }}">Dynmap</a></li>
+            <li><a href="{{path('ftm_player_whitelist')}}">La whitelist {% if is_granted('ROLE_ADMIN') %}{{render(controller('FtmPlayerBundle:Player:getWlNb'))}}{%endif%}</a></li>
+          </ul>
+        </li>
+        {% if is_granted('ROLE_PLAYER') %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Membres <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{{path('ftm_download')}}">T&eacute;l&eacute;chargements</a></li>
+            <li class="divider"></li>
+            <li><a href="{{path('ftm_player_info')}}">Mes infos</a></li>
+          </ul>
+        </li>
+        {%endif%}
+        {% if is_granted('ROLE_ADMIN') %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{{path('ftm_admin_list_demands')}}">Demandes {{render(controller('FtmPlayerBundle:Moderation:getInscriptionNB'))}}</a></li>
+            <li><a href="{{path('ftm_admin_mail')}}">Mail</a></li>
+            <li><a href="{{path('ftm_server_controll')}}">Commandes Serveur</a></li>
+          </ul>
+        </li>
+        {%endif%}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <li><a href="#">Logout</a></li>
+        {%else%}
+          <li><a href="#">Login</a></li>
+        {%endif%}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 	<header id="overview" class="jumbotron subhead">
 
     <div class="container"></div>
@@ -120,10 +114,17 @@
 		<hr>
 		<footer>
 			<p>ftmarshmallow.com © 2014.</p>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYBxsO0kY8Q6sOYgNGQFmYuNZ7FuVJbzBip4s9cWlsTLPRB0SdN9flLof1vK+EufdYMu4rhcel5G4wRIbggcDlOba4D/OrB3gPsqRjkGZeVmKSgsCZGYT7vKvM/ZGWIkmtW4qzoe0w/Sh1EQatpPwwAXtqqsFuTnpJ//E7jyPfghMjELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQI0b2TT8leC62AgZAQrS4LdQ8OgVTQXVvzEbACHt+gpn+TURkdl3LMp2ZUnaKBCCaT8YMRhrd0Vm2bfcz2/axhlCwuxr9llPW4Y4IJRAfqjb4DD8PAHCEgehHTQvX0Xeelip0goNkyZ4Lb9QcUuVODOjgG3k2hi+YM8BeOpynjmV71YoaD7dIi+70g8FMSCJ2+xLxNMAw0ce8QjiygggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xNDEwMjcxNjAwMDdaMCMGCSqGSIb3DQEJBDEWBBRUtcTfLAxa8f8NB5fFNHk6X2i6wTANBgkqhkiG9w0BAQEFAASBgLxdTRSTQCp4f8QOKRE5d750EqZ8Biyuh7izT5AF3Ikow0SuSjgdiuTUyNlCZY62rYNJ0sN+dsS/ocNIAIOVwNvZR9Ug1siLEJQmuejaOdxl9a8ZlC5nyE1ePDTMtpB2hZ5gA62naYTelbyLb1h+sFeDBveMr3yigtUOn/TLhSzQ-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/fr_FR/CH/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !">
+<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+</form>
 		</footer>
     </div>
   {% block javascripts %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
   {% endblock %}
   </body>
