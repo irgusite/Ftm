@@ -17,8 +17,13 @@ class MainController extends Controller
 
 		$liste_instance = null;
     	$liste_map = null;
+        $liste_saves = null;
     	exec("ls /home/instances", $liste_instance);
     	exec("ls /home/maps", $liste_map);
+        exec("ls /home/ftm_backups/world/hourly", $liste_saves);
+        exec("ls /home/ftm_backups/world/daily", $liste_saves);
+        sort($liste_saves);
+        array_reverse($liste_saves);
 
     	$form = $this->createFormBuilder($instance)
     			->add('version', 'choice', array('choices' =>$liste_instance))
@@ -40,6 +45,7 @@ class MainController extends Controller
                 'etatMod'=>$etatMod[1],
                 'etatVanilla'=>$etatVanilla[1],
                 'form'=>$form->createView(),
+                'saves'=>$liste_saves,
             ));    
     }
 
