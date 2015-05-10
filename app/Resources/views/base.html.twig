@@ -73,9 +73,9 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-          <li><a href="#">Logout</a></li>
+          <li><a href="{{path('logout')}}">Logout</a></li>
         {%else%}
-          <li><a href="#">Login</a></li>
+          <li><a href="{{path('login')}}">Login</a></li>
         {%endif%}
       </ul>
     </div><!-- /.navbar-collapse -->
