@@ -7,5 +7,7 @@
 /access.log
 /error.log
 /web/app_dev.php
-/web/whitelist*
+/web/white-list*
 /web/files/*
+/web/mcmap
+/web/map
