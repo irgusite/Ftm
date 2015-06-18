@@ -37,6 +37,10 @@ ftm_player_info:
     pattern: /player/infos
     defaults: {_controller: FtmPlayerBundle:Player:playerInfo }
     
+ftm_player_password:
+    pattern: /player/password
+    defaults: {_controller: FtmPlayerBundle:Player:password}
+    
 ftm_player_pass_reset:
     pattern: /player/reset/{name}
     defaults: {_controller: FtmPlayerBundle:Player:generatePass }

@@ -4,21 +4,9 @@
 FTM - TeamSpeak
 {%endblock%}
 
-{% block topContainer %}
-<div class="hero-unit">
-	<h1>Salut Marhsmallow!</h1>
-	<p>Bienvenue sur le site du serveur Feed the Marshmallow! Le serveur est accessible sur inscription.</p>
-	<p><a href="{{ path('ftm_inscription') }}" class="btn btn-primary btn-large">S'inscrire &raquo;</a></p>
-</div>
-{% endblock %}
-
 {% block body %}
-<div class="container-fluid">
-	<div class="row" id="personal">	
-		<div class="col-md-12">
-			<h2>Serveur TeamSpeak3</h2>
-			<p>adresse du serveur TeamSpeak3: <a href="{{mumble}}">{{mumble}}</a></p>
-		</div>
+	<div class="col-md-12">
+		<h2>Serveur TeamSpeak3</h2>
+		<p>adresse du serveur TeamSpeak3: <a href="{{mumble}}">{{mumble}}</a></p>
 	</div>
-</div>
 {%endblock%}

@@ -35,3 +35,7 @@ ftm_file_download:
 ftm_dynmap:
     pattern: /dynmap
     defaults: {_controller: FtmblogBundle:Page:dynmap}
+    
+ftm_admin_news:
+    pattern: /admin/addnews
+    defaults: {_controller: FtmblogBundle:Blog:addNews}

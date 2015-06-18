@@ -4,10 +4,26 @@
 Ftm - News
 {%endblock%}
 
-{% block body %}
-	<h2>News</h2>
-	{% for New in News %}
-		<h4>{{New.title}}</h4>
-		<p>{{New.text|raw|nl2br}}</p>
-	{% endfor %}
+{%block body%}
+	<div class="container-fluid">
+	<div id="personal" class="row">
+	<div class="col-md-12">
+	<p>(Pas encore)Vous pouvez utiliser les bbCodes suivant dans votre texte: [url] lien [/url], [b] gras [/b], [i] italique [/i], [u] souligné [/u], [quote] citation [/quote]</p>	
+	<form id="inscription" method="post" role="form" {{ form_enctype(form) }}>
+		<div class="form-group">
+			{{form_label(form.title, 'Titre')}}
+			{{ form_widget(form.title,{'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="form-group">
+			{{form_label(form.text, 'Contenu')}}
+			{{ form_widget(form.text,{'attr': {'class': 'form-control'}}) }}
+		</div>
+		{{ form_rest(form) }}
+    <button type="submit" class="btn btn-default">Soumettre</button>
+  </form>
+        
+</div>
+</div>
+</div>
 {%endblock%}
+

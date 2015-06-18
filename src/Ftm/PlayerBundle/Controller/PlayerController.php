@@ -73,6 +73,45 @@ class PlayerController extends Controller
         return $this->render('FtmPlayerBundle:Default:form.html.twig', array('valid'=>$validation, 'demand'=>$demand, 'form' => $form->createView(),));
     }
 	
+	public function passwordAction()
+    {
+		$repo =$this->getDoctrine()->getManager()->getRepository('FtmPlayerBundle:Player');
+		$user = new Player;
+		$user = $repo->findOneByUsername($this->getUser()->getUsername());
+		$form = $this->createFormBuilder($user)
+					 ->add('password', 'repeated', array(
+					 		'error_bubbling'=>true,
+						    'type' => 'password',
+						    'invalid_message' => 'Les mots de passe ne correspondent pas.',
+						    'options' => array('required' => true),
+						    'first_options'  => array('label' => 'Mot de passe', 'error_bubbling'=>true),
+						    'second_options' => array('label' => 'Mot de passe (validation)'),
+						))
+					 ->getForm();
+		$request = $this->get('request');
+		if($request->getMethod() == 'POST')
+		{
+			$form->bind($request);
+			if($form->isValid())
+			{
+				$em =$this->getDoctrine()->getManager();
+				$salt = md5(microtime().rand());
+				$user->setSalt($salt);
+				$factory = $this->get('security.encoder_factory');
+				$encoder = $factory->getEncoder($user);
+				$password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+				$user->setPassword($password);
+				$em->persist($user);
+				$em->flush();
+				$this->get('session')->getFlashBag()->add('success', 'Votre mot de passe a été changé');
+				return $this->redirect($this->generateUrl('ftm_player_info'));
+			}
+			
+		}	   
+		
+        return $this->render('FtmPlayerBundle:Player:password.html.twig', array('form' => $form->createView()));
+    }
+	
 	public function playerInfoAction()
 	{
 		$validation = false;
@@ -91,7 +130,6 @@ class PlayerController extends Controller
 		$formBuilder
 				->add('username',        'text')
 				->add('email',       'text')
-				->add('password',     'password')
 				->add('age',      'integer');
 		$form = $formBuilder->getForm();
 		
@@ -105,19 +143,13 @@ class PlayerController extends Controller
 		  {
 			$repo = $this->getDoctrine()->getManager();//on prepare le manager a manager l'entité
 			
-			//on crypte le mot de passe
-			$encoder = $factory->getEncoder($player);
-			$player->setSalt($salt);//on cree le salt
-			$password = $encoder->encodePassword($player->getPassword(), $player->getSalt());
-			$player->setPassword($password);
-			
 			$repo->persist($player);
 			$repo->flush();
-			$validation = true;
+			$this->get('session')->getFlashBag()->add('success', 'Vos informations ont été changés	');
 		  }
 		}
 		
-        return $this->render('FtmPlayerBundle:Player:info.html.twig', array('valid'=>$validation, 'form' => $form->createView(), 'username'=>$player->getUsername()));
+        return $this->render('FtmPlayerBundle:Player:info.html.twig', array('form' => $form->createView(), 'username'=>$player->getUsername()));
 	}
 	
 	public function playerAdminAction($username)

@@ -3,21 +3,24 @@
 {%block title %}Infos joueur{%endblock%}
 
 {% block body %}
+<div class="col-md-12" id="personal">
 <h2>Mes infos <img src="https://minotar.net/avatar/{{username}}/32"></h2>
-{%if valid %}
-<div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Cool!</strong> Les données ont été enregistrées
-</div>
-{% endif %}
-<div class="well">
-<div class="alert alert-info">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Infos!!</strong> Rerentrez votre mot de passe, le champ est encore obligatoire, le temps de coder ca un peu mieux.
-</div>
   <form method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <input type="submit" class="btn btn-primary" />
-  </form>
+		<div class="form-group">
+			{{form_label(form.username, 'Pseudo')}}
+			{{ form_widget(form.username,{'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="form-group" role="form">
+			{{form_label(form.email, 'E-Mail')}}
+			{{ form_widget(form.email,{'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="form-group" role="form">
+			{{form_label(form.age, 'Age')}}
+			{{ form_widget(form.age,{'attr': {'class': 'form-control'}}) }}
+		</div>
+		{{ form_widget(form) }}
+		<input type="submit" class="btn btn-primary" />
+		<a href="{{path('ftm_player_password')}}"><button type="button" class="btn btn-danger">Changer le mot de passe</button></a>
+	</form>
 </div>
 {%endblock%}
