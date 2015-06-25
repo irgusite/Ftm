@@ -7,16 +7,15 @@ ftm_moderate_player:
 ftm_admin_list_demands:
     pattern: /admin/demands
     defaults: {_controller: FtmPlayerBundle:Moderation:list}
-    
+
 ftm_admin_player_info:
     pattern: /admin/player/{username}
     defaults: {_controller: FtmPlayerBundle:Player:playerAdmin }
 
-    
 ftm_admin_upload_wl:
     pattern: /whitelist/upload
     defaults: {_controller: FtmPlayerBundle:Moderation:uploadWL}
-    
+
 ftm_admin_mail:
     pattern: /admin/mail
     defaults: {_controller: FtmPlayerBundle:Player:sendMail}
@@ -24,7 +23,7 @@ ftm_admin_mail:
 ftm_admin_player_del:
     pattern: /admin/player/del/{id}
     defaults: {_controller: FtmPlayerBundle:Player:deletePlayer}
-    
+
 ftm_admin_event:
     pattern: /admin/event
     defaults: {_controller: FtmPlayerBundle:Event:view}
@@ -36,26 +35,29 @@ ftm_inscription:
 ftm_player_info:
     pattern: /player/infos
     defaults: {_controller: FtmPlayerBundle:Player:playerInfo }
-    
+
 ftm_player_password:
     pattern: /player/password
     defaults: {_controller: FtmPlayerBundle:Player:password}
-    
+
 ftm_player_pass_reset:
     pattern: /player/reset/{name}
     defaults: {_controller: FtmPlayerBundle:Player:generatePass }
-    
+
+ftm_player_api_reset:
+    pattern: /player/resetAPI/{name}
+    defaults: {_controller: FtmPlayerBundle:Player:generateAPI }
+
 ftm_player_whitelist:
     pattern: /whitelist
     defaults: {_controller: FtmPlayerBundle:Moderation:whitelist }
-    
+
 login:
     pattern: /login
     defaults: {_controller: FtmPlayerBundle:Security:login}
 
 login_check:
     pattern: /login_check
-    
+
 logout:
     pattern: /logout
-    

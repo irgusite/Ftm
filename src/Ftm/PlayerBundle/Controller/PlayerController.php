@@ -233,6 +233,29 @@ class PlayerController extends Controller
 		$this->get('session')->getFlashBag()->add('success','Mot de passe réinitialisé!');
 		return $this->redirect($this->generateUrl('ftm_player_whitelist'));
 	}
+
+	public function generateAPIAction($name)
+	{
+		$repository = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('FtmPlayerBundle:Player');
+		
+		$withoutPass = $repository->findByUsername($name);
+		
+		$repo = $this->getDoctrine()->getManager();
+		$factory = $this->get('security.encoder_factory');
+		foreach($withoutPass as $player)
+		{
+			$api = base64_encode(rand());
+			
+			$player->setApi($api);
+
+			$repo->persist($player);
+			$repo->flush();
+		}
+		$this->get('session')->getFlashBag()->add('success','Clé API Régénérée');
+		return $this->redirect($this->generateUrl('ftm_player_info'));
+	}
 	
 	public function sendMailAction()
 	{
