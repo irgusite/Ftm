@@ -20,10 +20,8 @@
 		</div>
 		{% if is_granted('ROLE_ADMIN') %}
 		<div class="form-group">
-   			<label class="col-sm-2 control-label">API KEY</label>
-    		<div class="col-sm-10">
-      			<p class="form-control-static">{{api}}</p>
-    		</div>
+   			<label for="API" class="sr-only">API KEY</label>
+    			<input class="form-control" id="API" type="text" placeholder="{{api}}" disabled>
   		</div>
   		{% endif %}
 		{{ form_widget(form) }}
