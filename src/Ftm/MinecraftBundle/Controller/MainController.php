@@ -74,7 +74,7 @@ class MainController extends Controller
         $repo =$this->getDoctrine()->getManager()->getRepository('FtmPlayerBundle:Player');
         $user = new Player;
         $user = $repo->findOneByApi($apikey);
-        if ($user->isGranted('ROLE_ADMIN')){
+        if (in_array("ROLE_ADMIN", $user->getRoles())){
             if($server == 'minecraft' || $server == 'ftm'){
             exec("sudo /etc/init.d/".$server." ".$command, $servResponse);
 
