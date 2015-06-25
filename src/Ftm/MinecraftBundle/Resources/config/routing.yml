@@ -9,5 +9,5 @@ ftm_ajax_server_controll:
         _method: POST
 
 ftm_server_outer_controll:
-    path: /server/{serv}/{action}/{apikey}
+    path: /server/{server}/{action}/{apikey}
     defaults: { _controller: FtmMinecraftBundle:Main:outerControll}
