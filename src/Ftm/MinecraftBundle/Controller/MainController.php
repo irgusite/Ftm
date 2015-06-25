@@ -76,7 +76,7 @@ class MainController extends Controller
         $user = $repo->findOneByApi($apikey);
         if (in_array("ROLE_ADMIN", $user->getRoles())){
             if($server == 'minecraft' || $server == 'ftm'){
-            exec("sudo /etc/init.d/".$server." ".$command, $servResponse);
+            exec("sudo /etc/init.d/".$server." ".$action, $servResponse);
 
             $response = new JsonResponse();
             $response->setData(array(
