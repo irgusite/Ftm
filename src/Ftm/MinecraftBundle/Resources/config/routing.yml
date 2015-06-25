@@ -7,3 +7,7 @@ ftm_ajax_server_controll:
     defaults: { _controller: FtmMinecraftBundle:Main:ajaxCommand}
     requirements:
         _method: POST
+
+ftm_server_outer_controll:
+	path:	/server/{server}/{action}/{apikey}
+	defaults: {_controller: FtmMinecraftBundle:Main:outerControll}

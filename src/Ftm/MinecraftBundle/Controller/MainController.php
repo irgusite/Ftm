@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Ftm\PlayerBundle\Entity\Instance;
+use Ftm\PlayerBundle\Entity\Player;
 
 class MainController extends Controller
 {
@@ -67,6 +68,24 @@ class MainController extends Controller
     		'server' => $server,
     		));
     	return $response;
+    }
+
+    public function outerControllAction($server, $action, $apikey){
+        $repo =$this->getDoctrine()->getManager()->getRepository('FtmPlayerBundle:Player');
+        $user = new Player;
+        $user = $repo->findOneByApi($apikey);
+        if $user->isGranted('ROLE_ADMIN'){
+            if($server == 'minecraft' || $server == 'ftm'){
+            exec("sudo /etc/init.d/".$server." ".$command, $servResponse);
+
+            $response = new JsonResponse();
+            $response->setData(array(
+                'serverStatus' => $servResponse[1],
+                'server' => $server,
+                ));
+            return $response;
+        }
+        }
     }
 
 }
