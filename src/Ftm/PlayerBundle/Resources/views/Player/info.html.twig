@@ -20,7 +20,7 @@
 		</div>
 		{% if is_granted('ROLE_ADMIN') %}
 		<div class="form-group">
-   			<label for="API" class="sr-only">API KEY</label>
+   			<label for="API" class="required">API KEY</label>
     			<input class="form-control" id="API" type="text" placeholder="{{api}}" disabled>
   		</div>
   		{% endif %}
