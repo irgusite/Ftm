@@ -57,6 +57,13 @@ class Player implements UserInterface
      */
     private $age;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="api_key", type="string", length=255)
+     */
+    private $api;
+
 	/**
 	* @ORM\Column(name="password", type="string", length=255)
 	*/
@@ -133,6 +140,29 @@ class Player implements UserInterface
     public function getConnected()
     {
         return $this->connected;
+    }
+
+    /**
+     * Set API
+     *
+     * @param string $api
+     * @return Player
+     */
+    public function setApi($api)
+    {
+        $this->api = $api;
+
+        return $this;
+    }
+
+    /**
+     * Get API
+     *
+     * @return string 
+     */
+    public function getApi()
+    {
+        return $this->api;
     }
 
     /**

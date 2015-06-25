@@ -18,6 +18,14 @@
 			{{form_label(form.age, 'Age')}}
 			{{ form_widget(form.age,{'attr': {'class': 'form-control'}}) }}
 		</div>
+		{% if is_granted('ROLE_ADMIN') %}
+		<div class="form-group">
+   			<label class="col-sm-2 control-label">API KEY</label>
+    		<div class="col-sm-10">
+      			<p class="form-control-static">{{api}}</p>
+    		</div>
+  		</div>
+  		{% endif %}
 		{{ form_widget(form) }}
 		<input type="submit" class="btn btn-primary" />
 		<a href="{{path('ftm_player_password')}}"><button type="button" class="btn btn-danger">Changer le mot de passe</button></a>
