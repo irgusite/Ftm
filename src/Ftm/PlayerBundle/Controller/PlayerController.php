@@ -246,7 +246,7 @@ class PlayerController extends Controller
 		$factory = $this->get('security.encoder_factory');
 		foreach($withoutPass as $player)
 		{
-			$api = base64_encode(rand());
+			$api = uniqid('', true);
 			
 			$player->setApi($api);
 
