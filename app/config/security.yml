@@ -42,6 +42,6 @@ security:
             security: false
             
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - {path: ^/admin, roles: ROLE_ADMIN}
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - {path: ^/admin, roles: ROLE_ADMIN, requires_channel: https}
         - {path: ^/player, roles: ROLE_PLAYER}
