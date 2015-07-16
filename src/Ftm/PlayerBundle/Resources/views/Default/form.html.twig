@@ -7,17 +7,6 @@
 		<div class="row" id="personal">	
 		<div class="col-md-12">
 <h2>Formulaire d'inscription</h2>
-{%if valid %}
-<div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Bravo!</strong> Ta candidature a été enregistrée.
-</div>
-{%elseif demand %}
-<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Du calme!</strong> Ta candidature fait déjà l'objet d'une demande.
-</div>
-{% endif %}
 <form id="inscription" method="post" role="form" {{ form_enctype(form) }}>
 	<div class="form-group">
 		{{form_label(form.pseudo, 'Pseudo')}}

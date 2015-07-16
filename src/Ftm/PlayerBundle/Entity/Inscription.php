@@ -56,6 +56,13 @@ class Inscription
      * @ORM\Column(name="premod", type="boolean")
      */
     private $premod;
+	
+	/**
+     * @var boolean
+     *
+     * @ORM\Column(name="mail_valid", type="boolean")
+     */
+    private $mail_valid;
 
     /**
      * @var string
@@ -153,6 +160,29 @@ class Inscription
     public function setPremod($premod)
     {
         $this->premod = $premod;
+
+        return $this;
+    }
+
+    /**
+     * Get Valid
+     *
+     * @return boolean 
+     */
+    public function getMail_valid()
+    {
+        return $this->mail_valid;
+    }
+	
+	/**
+     * Set valid
+     *
+     * @param boolean $premod
+     * @return Inscription
+     */
+    public function setMail_valid($valid)
+    {
+        $this->mail_valid = $valid;
 
         return $this;
     }

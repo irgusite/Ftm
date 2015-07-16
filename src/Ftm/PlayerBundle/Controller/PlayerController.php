@@ -35,20 +35,24 @@ class PlayerController extends Controller
 		 
 		  $form->bind($request);
 		  
-		  $demand = $er->exists($player->getPseudo());
+			if($er->exists($player->getPseudo()))
+				$this->get('session')->getFlashBag()->add('error1','Ce pseudo a déjà fais l\'objet d\'une demande.'); 
+
 		  
 		  if ($form->isValid() && !$demand) 
 		  {
 			$repo = $this->getDoctrine()->getManager();
 			$player->setPremod(($player->getAge()<$minimumAge?true:false));
 			$player->setUniqid($uniqid);
+			$player->setMail_valid(0);
 			$repo->persist($player);
 			$repo->flush();
-			$validation = true;
+			$this->get('session')->getFlashBag()->add('success','Ta candidature à bien été enregistrée. Un mail contenant un lien de confirmation t\'a été envoyé.'); 
+			
+			$mailer = $this->get('mailer');
 			
 			if($player->getAge()<$minimumAge)
 			{
-				$mailer = $this->get('mailer');
 
 				$message = \Swift_Message::newInstance()
 				  ->setSubject('Inscription FTM!')
@@ -58,7 +62,15 @@ class PlayerController extends Controller
 
 				$mailer->send($message);
 			}
-			$mailer = $this->get('mailer');
+			
+			$validation = \Swift_Message::newInstance()
+				->setSubject('Nouvelle inscription')
+				->setFrom('staff@ftmarshmallow.com')
+				->setTo($player->getEmail())
+				->setBody($this->renderView('FtmPlayerBundle:Moderation:validation.txt.twig', array('name' => $player->getPseudo(), 'motivation' => $player->getMotivation(), 'validation' => $player->getUniqid())));
+
+			$mailer->send($validation);
+			
 		 	$doby = \Swift_Message::newInstance()
 				->setSubject('Nouvelle inscription')
 				->setFrom('staff@ftmarshmallow.com')
@@ -66,12 +78,27 @@ class PlayerController extends Controller
 				->setBody($this->renderView('FtmPlayerBundle:Moderation:doby.txt.twig', array('name' => $player->getPseudo(), 'motivation' => $player->getMotivation())));
 
 			$mailer->send($doby);
-			return $this->render('FtmPlayerBundle:Default:form.html.twig', array('valid'=>$validation, 'demand'=>$demand, 'form' => $form->createView()));
 		  }
 		}
 		
-        return $this->render('FtmPlayerBundle:Default:form.html.twig', array('valid'=>$validation, 'demand'=>$demand, 'form' => $form->createView(),));
+        return $this->render('FtmPlayerBundle:Default:form.html.twig', array('form' => $form->createView(),));
     }
+	
+	public function mailConfirmAction($id){
+		$repo =$this->getDoctrine()->getManager()->getRepository('FtmPlayerBundle:Inscription');
+		$user = new Inscription;
+		$user = $repo->findOneByUniqid($id);
+		$em =$this->getDoctrine()->getManager();
+
+		
+		$user->setMail_valid(1);
+		$em->persist($user);
+		$em->flush();
+		
+		$this->get('session')->getFlashBag()->add('success','Ton mail a été confirmé. Ta candidature sera traitée le plus rapidement possible.'); 
+		
+		return $this->redirect($this->generateUrl('ftm_home'));
+	}
 	
 	public function passwordAction()
     {
@@ -324,5 +351,14 @@ class PlayerController extends Controller
 		$em->flush();
 		
 		return $this->redirect($this->generateUrl('ftm_player_whitelist'));
+	}
+	
+	public function updateMailTextAction($file){
+		$liste_mails = null;
+		//list different files
+		exec("ls /var/www/ftmarshmallow/src/Ftm/PlayerBundle/Ressources/views/Moderation", $liste_mails);
+
+		//show first file if nothing asked
+			
 	}
 }
