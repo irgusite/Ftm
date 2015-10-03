@@ -4,9 +4,10 @@ security:
         Ftm\PlayerBundle\Entity\Player: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_PLAYER, ROLE_BETA]
+        ROLE_ADMIN:       [ROLE_PLAYER, ROLE_BETA, ROLE_CONTROLLER]
         ROLE_BETA:        ROLE_PLAYER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_BETA]
+        ROLE_CONTROLLER:	  ROLE_PLAYER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_BETA, ROLE_CONTROLLER]
 
     providers:
         main:
@@ -44,4 +45,5 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - {path: ^/admin, roles: ROLE_ADMIN, requires_channel: https}
+        - {path: ^/admin, roles: ROLE_CONTROLLER, requires_channel: https}
         - {path: ^/player, roles: ROLE_PLAYER}

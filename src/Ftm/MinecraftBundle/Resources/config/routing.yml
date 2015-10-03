@@ -1,5 +1,5 @@
 ftm_server_controll:
-    path:     /admin/servercontroll
+    path:     /control/servercontroll
     defaults: { _controller: FtmMinecraftBundle:Main:serverControll }
 
 ftm_ajax_server_controll:

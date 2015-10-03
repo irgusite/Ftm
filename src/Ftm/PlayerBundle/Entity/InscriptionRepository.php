@@ -32,7 +32,7 @@ class InscriptionRepository extends EntityRepository
 		$resultat = $this->_em->createQueryBuilder()
 								  ->select('COUNT(a)')
 								  ->from($this->_entityName, 'a')
-								  ->where('a.premod=0')
+								  ->where('a.premod=0 AND a.mail_valid=1')
 								  ->getQuery()
 								  ->getSingleScalarResult();
 

@@ -41,7 +41,7 @@ ftm_player_password:
     defaults: {_controller: FtmPlayerBundle:Player:password}
 
 ft_player_confirm_mail:
-    pattern: /player/confirm/{id}
+    pattern: /inscription/confirm/{id}
     defaults: {_controller: FtmPlayerBundle:Player:mailConfirm}
 
 ftm_player_pass_reset:
