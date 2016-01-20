@@ -1,9 +1,6 @@
 # README #
 This repository contains all the source code for the ftmarshmallow.com website
 
-## Privacy ##
-
-This repository is actually private. The code has no reasons to become public at the moment. When it will have a reason i will publish it.
 
 ## Infos ##
 
