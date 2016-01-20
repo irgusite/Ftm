@@ -1,10 +1,12 @@
 language: php
+
 php:
     - '5.4'
 
 before_script:
     - cp app/config/parameters.yml.dist app/config/parameters.yml
-    - composer install
+    - composer self-update
+    - composer install -n
     - php app/console doctrine:database:create --env=test
     - php app/console doctrine:schema:create --env=test
     - php app/console doctrine:fixture:load -n --env=test
