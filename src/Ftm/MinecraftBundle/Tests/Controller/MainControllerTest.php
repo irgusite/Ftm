@@ -11,6 +11,8 @@ class MainControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/admin/serverControll');
+
+        return true;
     }
 
 }
