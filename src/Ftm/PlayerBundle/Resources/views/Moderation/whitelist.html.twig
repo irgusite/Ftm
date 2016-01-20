@@ -13,6 +13,42 @@ Liste des Marshmallows
 	<div class="row" id="personal">	
 		<div class="col-md-12">
 
+			<h2>CDM</h2>
+
+			{%if notfound %}
+			<div class="alert alert-error">
+			    <button type="button" class="close" data-dismiss="alert">&times;</button>
+			    <strong>Oups!</strong> Ce joueur n'as pas été trouvé
+			</div>
+			{%endif%}
+			<div class="table-responsive">
+				<table class="table">
+				<thead>
+					<tr><th>Pseudo</th>{% if is_granted('ROLE_ADMIN') %}<th>Age</th><th>E-mail</th><th>Tete</th><th>Connecté</th><th>Modifier</th><th>Autorisations</th>{%endif%}</tr>
+				</thead>
+				<tbody>
+					{% for inscrit in listeCDM %}
+					<tr
+					{% if inscrit.roles[0] == 'ROLE_BETA' %}
+						class="warning"
+					{% elseif inscrit.roles[0] == 'ROLE_ADMIN' %}
+						class="info"
+					{%endif%}
+					>
+					<td>{{inscrit.username}}</td>
+					{% if is_granted('ROLE_ADMIN') %}<td>{{inscrit.age}}</td>{%endif%}
+					{% if is_granted('ROLE_ADMIN') %}<td><a href="mailto:{{inscrit.email}}">{{inscrit.email}}</a></td>{%endif%}
+					{% if is_granted('ROLE_ADMIN') %}<td><img src="https://minotar.net/avatar/{{inscrit.username|replace({'.':'_'})}}/24"></td>{%endif%}
+					{% if is_granted('ROLE_ADMIN') %}<td>{{inscrit.connected}}</td>{%endif%}
+					{% if is_granted('ROLE_ADMIN') %}<td><a href="{{path('ftm_admin_player_info',{username: inscrit.username})}}"><span class="glyphicon glyphicon-pencil"></span></a> - <a href="{{path('ftm_admin_player_del',{id: inscrit.id})}}"><span class="glyphicon glyphicon-minus"></span></a> - <a href="{{path('ftm_player_pass_reset',{name: inscrit.username})}}"><span class="glyphicon glyphicon-lock"></span></a> - <a href="{{path('ftm_player_uuid_gen',{name: inscrit.username})}}"><span class="glyphicon glyphicon-download"></span></a></td>{%endif%}
+					{% if is_granted('ROLE_ADMIN') %}<td>{{inscrit.roles[0]}}</td>
+					{%endif%}
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+
 			<h2>Whitelist</h2>
 
 			{%if notfound %}
@@ -40,7 +76,7 @@ Liste des Marshmallows
 					{% if is_granted('ROLE_ADMIN') %}<td><a href="mailto:{{inscrit.email}}">{{inscrit.email}}</a></td>{%endif%}
 					{% if is_granted('ROLE_ADMIN') %}<td><img src="https://minotar.net/avatar/{{inscrit.username|replace({'.':'_'})}}/24"></td>{%endif%}
 					{% if is_granted('ROLE_ADMIN') %}<td>{{inscrit.connected}}</td>{%endif%}
-					{% if is_granted('ROLE_ADMIN') %}<td><a href="{{path('ftm_admin_player_info',{username: inscrit.username})}}"><span class="glyphicon glyphicon-pencil"></span></a> - <a href="{{path('ftm_admin_player_del',{id: inscrit.id})}}"><span class="glyphicon glyphicon-minus"></span></a> - <a href="{{path('ftm_player_pass_reset',{name: inscrit.username})}}"><span class="glyphicon glyphicon-lock"></span></a></td>{%endif%}
+					{% if is_granted('ROLE_ADMIN') %}<td><a href="{{path('ftm_admin_player_info',{username: inscrit.username})}}"><span class="glyphicon glyphicon-pencil"></span></a> - <a href="{{path('ftm_admin_player_del',{id: inscrit.id})}}"><span class="glyphicon glyphicon-minus"></span></a> - <a href="{{path('ftm_player_pass_reset',{name: inscrit.username})}}"><span class="glyphicon glyphicon-lock"></span></a> - <a href="{{path('ftm_player_uuid_gen',{name: inscrit.username})}}"><span class="glyphicon glyphicon-download"></span></a></td>{%endif%}
 					{% if is_granted('ROLE_ADMIN') %}<td>{{inscrit.roles[0]}}</td>
 					{%endif%}
 					</tr>

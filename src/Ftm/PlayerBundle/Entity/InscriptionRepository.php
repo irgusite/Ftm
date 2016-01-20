@@ -13,13 +13,14 @@ use Doctrine\ORM\EntityRepository;
 class InscriptionRepository extends EntityRepository
 {
 	//inscription exists
-	public function exists($pseudo)
+	public function exists($pseudo, $server)
 	{
 		$resultats = $this->_em->createQueryBuilder()
 								  ->select('COUNT(a)')
 								  ->from($this->_entityName, 'a')
-								  ->where('a.pseudo=:pseudo')
+								  ->where('a.pseudo=:pseudo AND a.server=:server')
 								  ->setParameter('pseudo', $pseudo)
+								  ->setParameter('server', $server)
 								  ->getQuery()
 								  ->getSingleScalarResult();
 

@@ -39,6 +39,13 @@ class Player implements UserInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="uuid", type="string", length=255, unique=true)
+     */
+    private $uuid;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
@@ -79,6 +86,12 @@ class Player implements UserInterface
 	*/
 	private $roles;
 
+    /**
+    * @ORM\Column(name="server", type="integer")
+    */
+    private $server;
+
+
 	public function __construct()
 	{
 		$this->admin = false;
@@ -117,6 +130,29 @@ class Player implements UserInterface
     public function getUsername()
     {
         return $this->username;
+    }
+
+	/**
+     * Set username
+     *
+     * @param string $username
+     * @return Player
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 
     /**
@@ -235,13 +271,13 @@ class Player implements UserInterface
     }
 	
 	public function setPassword($password)
-  {
-	if($password != null && $password != '')
-	{
-		$this->password = $password;
-	}
-    return $this;
-  }
+    {
+    	if($password != null && $password != '')
+    	{
+    		$this->password = $password;
+    	}
+        return $this;
+    }
 
   public function getPassword()
   {
@@ -268,6 +304,17 @@ class Player implements UserInterface
   public function getRoles()
   {
     return $this->roles;
+  }
+
+  public function setServer($server)
+  {
+    $this->server = $server;
+    return $this;
+  }
+
+  public function getServer()
+  {
+    return $this->server;
   }
 
   public function eraseCredentials()

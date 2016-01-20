@@ -13,14 +13,30 @@ Demande the Marshmallow
 	<div class="row" id="personal">	
 		<div class="col-md-12">
 
-			<h2>Liste des inscriptions</h2>
+			<h2>Liste des inscriptions CDM</h2>
 
-			{%if notfound %}
-			<div class="alert alert-error">
-			    <button type="button" class="close" data-dismiss="alert">&times;</button>
-			    <strong>Oups!</strong> Ce joueur n'as pas été trouvé
-			</div>
-			{%endif%}
+			<table class="table">
+				<thead>
+					<tr><th>Pseudo</th><th>Age</th><th>Motivation</th><th>Tete</th><th>moderation</th></tr>
+				</thead>
+				<tbody>
+					{% for inscrit in listeCDM %}
+					<tr {% if inscrit.mail_valid == 0 %} class="danger"{%endif%}>
+						<td>{{inscrit.pseudo}}</td>
+						<td>{{inscrit.age}}</td>
+						<td>{{inscrit.motivation}}</td>
+						<td><img src="https://minotar.net/avatar/{{inscrit.pseudo}}/24"></td>
+						<td>{% if inscrit.mail_valid == 1 %}<a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:1})}}">
+							<span class="glyphicon glyphicon-plus"></span></a> {%else%} Mail non confirmé{%endif%}
+							<a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:0})}}">
+							<span class="glyphicon glyphicon-minus"></span></a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<h2>Liste des inscriptions</h2>
 
 			<table class="table">
 				<thead>
@@ -28,13 +44,13 @@ Demande the Marshmallow
 				</thead>
 				<tbody>
 					{% for inscrit in liste %}
-					<tr>
+					<tr {% if inscrit.mail_valid == 0 %} class="danger"{%endif%}>
 						<td>{{inscrit.pseudo}}</td>
 						<td>{{inscrit.age}}</td>
 						<td>{{inscrit.motivation}}</td>
 						<td><img src="https://minotar.net/avatar/{{inscrit.pseudo}}/24"></td>
-						<td><a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:1})}}">
-							<span class="glyphicon glyphicon-plus"></span></a> 
+						<td>{% if inscrit.mail_valid == 1 %}<a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:1})}}">
+							<span class="glyphicon glyphicon-plus"></span></a> {%else%} Mail non confirmé{%endif%}
 							<a href="{{path('ftm_moderate_player',{uniqid: inscrit.uniqid, accept:0})}}">
 							<span class="glyphicon glyphicon-minus"></span></a>
 						</td>

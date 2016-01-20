@@ -1,67 +1,75 @@
 ftm_moderate_player:
-    pattern: /admin/mod/{accept}/{uniqid}
+    path: /admin/mod/{accept}/{uniqid}
     defaults: { _controller: FtmPlayerBundle:Moderation:accept }
     requirements:
         uniqid: ^[a-z0-9]{32}
 
 ftm_admin_list_demands:
-    pattern: /admin/demands
+    path: /admin/demands
     defaults: {_controller: FtmPlayerBundle:Moderation:list}
 
 ftm_admin_player_info:
-    pattern: /admin/player/{username}
+    path: /admin/player/{username}
     defaults: {_controller: FtmPlayerBundle:Player:playerAdmin }
 
 ftm_admin_upload_wl:
-    pattern: /whitelist/upload
+    path: /whitelist/upload
     defaults: {_controller: FtmPlayerBundle:Moderation:uploadWL}
 
 ftm_admin_mail:
-    pattern: /admin/mail
+    path: /admin/mail
     defaults: {_controller: FtmPlayerBundle:Player:sendMail}
 
 ftm_admin_player_del:
-    pattern: /admin/player/del/{id}
+    path: /admin/player/del/{id}
     defaults: {_controller: FtmPlayerBundle:Player:deletePlayer}
 
 ftm_admin_event:
-    pattern: /admin/event
+    path: /admin/event
     defaults: {_controller: FtmPlayerBundle:Event:view}
 
 ftm_inscription:
-    pattern: /inscription
+    path: /inscription
     defaults: { _controller: FtmPlayerBundle:Player:inscription }
 
+ftm_inscription_cdm:
+    path: /inscription/cdm
+    defaults: { _controller: FtmPlayerBundle:Player:inscriptioncds }
+
 ftm_player_info:
-    pattern: /player/infos
+    path: /player/infos
     defaults: {_controller: FtmPlayerBundle:Player:playerInfo }
 
 ftm_player_password:
-    pattern: /player/password
+    path: /player/password
     defaults: {_controller: FtmPlayerBundle:Player:password}
 
 ft_player_confirm_mail:
-    pattern: /inscription/confirm/{id}
+    path: /inscription/confirm/{id}
     defaults: {_controller: FtmPlayerBundle:Player:mailConfirm}
 
 ftm_player_pass_reset:
-    pattern: /player/reset/{name}
+    path: /player/reset/{name}
     defaults: {_controller: FtmPlayerBundle:Player:generatePass }
 
 ftm_player_api_reset:
-    pattern: /player/resetAPI/{name}
+    path: /player/resetAPI/{name}
     defaults: {_controller: FtmPlayerBundle:Player:generateAPI }
 
+ftm_player_uuid_gen:
+    path: /player/UUID/{name}
+    defaults: {_controller: FtmPlayerBundle:Player:generateUuid }
+
 ftm_player_whitelist:
-    pattern: /whitelist
+    path: /whitelist
     defaults: {_controller: FtmPlayerBundle:Moderation:whitelist }
 
 login:
-    pattern: /login
+    path: /login
     defaults: {_controller: FtmPlayerBundle:Security:login}
 
 login_check:
-    pattern: /login_check
+    path: /login_check
 
 logout:
-    pattern: /logout
+    path: /logout

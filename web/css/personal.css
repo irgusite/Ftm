@@ -1,5 +1,5 @@
 body{
-	background-image: url("img/background.jpg");
+	background-image: url("img/background.png");
 	background-size: cover;
 	background-attachment: fixed;
 	margin: -20px;
@@ -11,7 +11,7 @@ body{
 	color:white;
 	text-align: center;
 }
-#personal table .success,#personal table .info,#personal table .warning{
+#personal table .success,#personal table .info,#personal table .warning ,#personal table .danger{
 	color: black;
 
 }

@@ -21,6 +21,10 @@ class PlayerController extends Controller
 		$er = $this->getDoctrine()
 					 ->getManager()
 					 ->getRepository('FtmPlayerBundle:Inscription');
+
+		$players = $this->getDoctrine()
+					 ->getManager()
+					 ->getRepository('FtmPlayerBundle:Player');
 		
 		$formBuilder
 				->add('pseudo',        'text', array('attr'=>array('autofocus'=>'autofocus')))
@@ -35,16 +39,27 @@ class PlayerController extends Controller
 		 
 		  $form->bind($request);
 		  
-			if($er->exists($player->getPseudo()))
-				$this->get('session')->getFlashBag()->add('error1','Ce pseudo a déjà fais l\'objet d\'une demande.'); 
+			if($er->exists($player->getPseudo(), $player->getServer())){
+				$this->get('session')->getFlashBag()->add('error','Ce pseudo a déjà fait l\'objet d\'une demande.'); 
+				$demand = true;
+			}
+			elseif($players->exists($player->getPseudo(), $player->getServer())) {
+				$this->get('session')->getFlashBag()->add('error','Ce pseudo est déjà whitelisté.'); 
+				$demand = true;
+			}
 
 		  
-		  if ($form->isValid() && !$demand) 
-		  {
+		    if ($form->isValid() && !$demand) 
+		    {
 			$repo = $this->getDoctrine()->getManager();
+
 			$player->setPremod(($player->getAge()<$minimumAge?true:false));
 			$player->setUniqid($uniqid);
 			$player->setMail_valid(0);
+			$player->setServer(2);
+			$player->setPassword('0');
+			$player->setSalt('0');
+
 			$repo->persist($player);
 			$repo->flush();
 			$this->get('session')->getFlashBag()->add('success','Ta candidature à bien été enregistrée. Un mail contenant un lien de confirmation t\'a été envoyé.'); 
@@ -70,18 +85,107 @@ class PlayerController extends Controller
 				->setBody($this->renderView('FtmPlayerBundle:Moderation:validation.txt.twig', array('name' => $player->getPseudo(), 'motivation' => $player->getMotivation(), 'validation' => $player->getUniqid())));
 
 			$mailer->send($validation);
-			
-		 	$doby = \Swift_Message::newInstance()
-				->setSubject('Nouvelle inscription')
-				->setFrom('staff@ftmarshmallow.com')
-				->setTo('iamadena.ftm@gmail.com')
-				->setBody($this->renderView('FtmPlayerBundle:Moderation:doby.txt.twig', array('name' => $player->getPseudo(), 'motivation' => $player->getMotivation())));
-
-			$mailer->send($doby);
 		  }
 		}
 		
         return $this->render('FtmPlayerBundle:Default:form.html.twig', array('form' => $form->createView(),));
+    }
+
+    public function inscriptioncdsAction()
+    {		
+		$uniqid = md5(microtime().rand());
+		$validation=false;//tout c'est bien passe
+		$demand=false; //fait deja l'etat d'une demande
+		$minimumAge = 13;
+		$repo =$this->getDoctrine()->getManager()->getRepository('FtmPlayerBundle:Player');
+		$user = new Player;
+		
+		$player = new Inscription;
+		
+		$formBuilder = $this->createFormBuilder($player);
+		$er = $this->getDoctrine()
+					 ->getManager()
+					 ->getRepository('FtmPlayerBundle:Inscription');
+
+		$players = $this->getDoctrine()
+					 ->getManager()
+					 ->getRepository('FtmPlayerBundle:Player');
+		
+		$formBuilder
+				->add('pseudo',        'text', array('attr'=>array('autofocus'=>'autofocus')))
+				->add('email',       'text')
+				->add('motivation',     'textarea')
+				->add('password', 'repeated', array(
+					 		'error_bubbling'=>true,
+						    'type' => 'password',
+						    'invalid_message' => 'Les mots de passe ne correspondent pas.',
+						    'options' => array('required' => true),
+						    'first_options'  => array('label' => 'Mot de passe', 'error_bubbling'=>true),
+						    'second_options' => array('label' => 'Mot de passe (validation)'),
+						))
+				->add('age',      'integer');
+		$form = $formBuilder->getForm();
+
+		$request = $this->get('request');
+	
+		if ($request->getMethod() == 'POST') {
+		 
+		  $form->bind($request);
+		  
+			if($er->exists($player->getPseudo(), $player->getServer())){
+				$this->get('session')->getFlashBag()->add('error','Ce pseudo a déjà fait l\'objet d\'une demande.'); 
+				$demand = true;
+			}
+			elseif($players->exists($player->getPseudo(), $player->getServer())) {
+				$this->get('session')->getFlashBag()->add('error','Ce pseudo est déjà whitelisté.'); 
+				$demand = true;
+			}
+
+		  
+		    if ($form->isValid() && !$demand) 
+		    {
+			$repo = $this->getDoctrine()->getManager();
+
+			$player->setPremod(($player->getAge()<$minimumAge?true:false));
+			$player->setUniqid($uniqid);
+			$player->setMail_valid(0);
+			$player->setServer(1);//serveur cds = 3
+			$salt = md5(microtime().rand());
+			$player->setSalt($salt);
+			$factory = $this->get('security.encoder_factory');
+			$encoder = $factory->getEncoder($user);
+			$password = $encoder->encodePassword($player->getPassword(), $player->getSalt());
+			$player->setPassword($password);
+
+			$repo->persist($player);
+			$repo->flush();
+			$this->get('session')->getFlashBag()->add('success','Ta candidature à bien été enregistrée. Un mail contenant un lien de confirmation t\'a été envoyé.'); 
+			
+			$mailer = $this->get('mailer');
+			
+			if($player->getAge()<$minimumAge)
+			{
+
+				$message = \Swift_Message::newInstance()
+				  ->setSubject('[FTM] Réponse à l\'inscription')
+				  ->setFrom('staff@ftmarshmallow.com')
+				  ->setTo($player->getEmail())
+				  ->setBody($this->renderView('FtmPlayerBundle:Moderation:refuse.txt.twig', array('name' => $player->getPseudo())));
+
+				$mailer->send($message);
+			}
+			
+			$validation = \Swift_Message::newInstance()
+				->setSubject('[FTM] Validation e-mail')
+				->setFrom('staff@ftmarshmallow.com')
+				->setTo($player->getEmail())
+				->setBody($this->renderView('FtmPlayerBundle:Moderation:validation.txt.twig', array('name' => $player->getPseudo(), 'motivation' => $player->getMotivation(), 'validation' => $player->getUniqid())));
+
+			$mailer->send($validation);
+		  }
+		}
+		
+        return $this->render('FtmPlayerBundle:Default:form_cds.html.twig', array('form' => $form->createView(),));
     }
 	
 	public function mailConfirmAction($id){
@@ -89,11 +193,20 @@ class PlayerController extends Controller
 		$user = new Inscription;
 		$user = $repo->findOneByUniqid($id);
 		$em =$this->getDoctrine()->getManager();
+		$mailer = $this->get('mailer');
 
 		
 		$user->setMail_valid(1);
 		$em->persist($user);
 		$em->flush();
+
+		$doby = \Swift_Message::newInstance()
+				->setSubject('Nouvelle inscription: '.$user->getPseudo())
+				->setFrom('staff@ftmarshmallow.com')
+				->setTo(array('iamadena.ftm@gmail.com', 'staff@ftmarshmallow.com'))
+				->setBody($this->renderView('FtmPlayerBundle:Moderation:doby.html.twig', array('user' => $user)),'text/html');
+
+		$mailer->send($doby);
 		
 		$this->get('session')->getFlashBag()->add('success','Ton mail a été confirmé. Ta candidature sera traitée le plus rapidement possible.'); 
 		
@@ -256,6 +369,38 @@ class PlayerController extends Controller
 			
 			$repo->persist($player);
 			$repo->flush();
+		}
+		$this->get('session')->getFlashBag()->add('success','Mot de passe réinitialisé!');
+		return $this->redirect($this->generateUrl('ftm_player_whitelist'));
+	}
+
+	public function generateUuidAction($name)
+	{
+		$repository = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('FtmPlayerBundle:Player');
+		
+		$user = $repository->findAll();
+		//$user = $repository->findByUuid(0);
+		
+		$repo = $this->getDoctrine()->getManager();
+		$factory = $this->get('security.encoder_factory');
+		foreach($user as $player)
+		{
+			$content = file_get_contents('https://api.mojang.com/users/profiles/minecraft/'.urlencode($player->getUsername()).'?at=1423052098' );
+			// Decode it
+			$json = json_decode($content);
+
+			// Check for error
+			if (empty($json->error) && !empty($json->id)&& !empty($json->name)) {
+			    $uuid = $json->id;
+				$player->setUuid($uuid);
+				$player->setUsername($json->name);
+				
+				$repo->persist($player);
+				$repo->flush();
+			}
+			
 		}
 		$this->get('session')->getFlashBag()->add('success','Mot de passe réinitialisé!');
 		return $this->redirect($this->generateUrl('ftm_player_whitelist'));

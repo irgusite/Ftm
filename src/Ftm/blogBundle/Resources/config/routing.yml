@@ -1,41 +1,41 @@
 ftm_home:
-    pattern: /
+    path: /
     defaults: { _controller: FtmblogBundle:Blog:index}
 
 ftm_irc:
-    pattern: /irc
+    path: /irc
     defaults: { _controller: FtmblogBundle:Page:irc}
 
 ftm_mumble:
-    pattern: /mumble
+    path: /mumble
     defaults: { _controller: FtmblogBundle:Page:mumble}
 
 ftm_server:
-    pattern: /server
+    path: /server
     defaults: { _controller: FtmblogBundle:Page:server}
 
 ftm_contact:
-    pattern: /contact
+    path: /contact
     defaults: {_controller: FtmblogBundle:Page:contact}
 
 ftm_stargate:
-    pattern: /stargate.{format}
+    path: /stargate.{format}
     defaults: {_controller: FtmblogBundle:Page:stargate, format: html}
     requirements:
         format: html|txt
 
 ftm_download:
-    pattern: /player/download
+    path: /player/download
     defaults: {_controller: FtmblogBundle:Page:download}
     
 ftm_file_download:
-    pattern: /player/download/{name}
+    path: /player/download/{name}
     defaults: {_controller: FtmblogBundle:Page:dlFichier}
 
 ftm_dynmap:
-    pattern: /dynmap
+    path: /dynmap
     defaults: {_controller: FtmblogBundle:Page:dynmap}
     
 ftm_admin_news:
-    pattern: /admin/addnews
+    path: /admin/addnews
     defaults: {_controller: FtmblogBundle:Blog:addNews}

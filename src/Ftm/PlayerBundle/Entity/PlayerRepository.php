@@ -23,4 +23,32 @@ class PlayerRepository extends EntityRepository
 		
 		return $resultat;
 	}
+
+	public function exists($pseudo, $server)
+	{
+		$resultats = $this->_em->createQueryBuilder()
+								  ->select('COUNT(a)')
+								  ->from($this->_entityName, 'a')
+								  ->where('a.username=:pseudo AND a.server=:server')
+								  ->setParameter('server', $server)
+								  ->setParameter('pseudo', $pseudo)
+								  ->getQuery()
+								  ->getSingleScalarResult();
+
+		
+		return $resultats>0?true:false;
+	}
+	public function member($pseudo)
+	{
+		$resultats = $this->_em->createQueryBuilder()
+								  ->select('COUNT(a)')
+								  ->from($this->_entityName, 'a')
+								  ->where('a.username=:pseudo')
+								  ->setParameter('pseudo', $pseudo)
+								  ->getQuery()
+								  ->getSingleScalarResult();
+
+		
+		return $resultats>0?true:false;
+	}
 }

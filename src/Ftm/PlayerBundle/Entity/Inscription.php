@@ -2,6 +2,7 @@
 
 namespace Ftm\PlayerBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +22,13 @@ class Inscription
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="server", type="integer")
+     */
+    private $server;
 	
 	/**
      * @var string
@@ -34,7 +42,7 @@ class Inscription
      *
      * @ORM\Column(name="pseudo", type="string", length=255)
      */
-    private $pseudo;
+    private $pseudo; 
 
     /**
      * @var string
@@ -63,6 +71,16 @@ class Inscription
      * @ORM\Column(name="mail_valid", type="boolean")
      */
     private $mail_valid;
+
+    /**
+    * @ORM\Column(name="password", type="string", length=255)
+    */
+    private $password;
+
+    /**
+    * @ORM\Column(name="salt", type="string", length=255)
+    */
+    private $salt;
 
     /**
      * @var string
@@ -103,6 +121,29 @@ class Inscription
     public function getPseudo()
     {
         return $this->pseudo;
+    }
+
+    /**
+     * Set server
+     *
+     * @param string $server
+     * @return Inscription
+     */
+    public function setServer($server)
+    {
+        $this->server = $server;
+
+        return $this;
+    }
+
+    /**
+     * Get server
+     *
+     * @return string 
+     */
+    public function getServer()
+    {
+        return $this->server;
     }
 
     /**
@@ -149,6 +190,31 @@ class Inscription
     public function getAge()
     {
         return $this->age;
+    }
+
+    public function setPassword($password)
+    {
+        if($password != null && $password != '')
+        {
+            $this->password = $password;
+        }
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+        return $this;
+    }
+
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**

@@ -12,17 +12,57 @@ class MainController extends Controller
 {
     public function serverControllAction()
     {
-    	exec("sudo /etc/init.d/ftm status", $etatMod);
-    	exec("sudo /etc/init.d/minecraft status", $etatVanilla);
+        $servers = array("ftm1", "minecraft", "cite");
+        $serverNames = array("Moddé", "Vanilla", "Cité");
+        $serverStates = array();
+        $serverBackups = array();
+
+        $server1 = 'ftm1';
+        $server2 = 'minecraft';
+
+        $etatMod = '';
+        $etatVanilla = '';
+/*
+        $count=0;
+        foreach ($servers as $server) {
+            //Status check
+            exec("sudo /etc/init.d/".$server." status", $etat);
+            $i=0;
+            while(strstr($etat[$i], 'java')||strstr($etat[$i], 'jar')){
+                $i++;
+            }
+            $serverStates[$server] = $etat[$i];
+
+            //Backups Check
+            exec("ls /home/backups/maps/".$server, $serverBackups[$server]);
+            sort($serverBackups[$server]);
+
+        }//*/
+
+    	//*
+        exec("sudo /etc/init.d/".$server1." status", $etatMod);
+    	exec("sudo /etc/init.d/".$server2." status", $etatVanilla);
     	$instance = new Instance();
+
+        $i=0;
+        while(strstr($etatMod[$i], 'java')||strstr($etatMod[$i], 'jar')){
+            $i++;
+        }
+        $etatMod = $etatMod[$i];
+
+        $i=0;
+        while(strstr($etatVanilla[$i], 'java')||strstr($etatVanilla[$i], 'jar')){
+            $i++;
+        }
+        $etatVanilla = $etatVanilla[$i];
 
 		$liste_instance = null;
     	$liste_map = null;
         $liste_saves = null;
     	exec("ls /home/instances", $liste_instance);
     	exec("ls /home/maps", $liste_map);
-        exec("ls /home/ftm_backups/world/hourly", $liste_saves);
-        exec("ls /home/ftm_backups/world/daily", $liste_saves);
+        exec("ls /home/backups/maps/cite", $liste_saves);
+        //exec("ls /home/backups/maps/cite", $liste_saves);
         sort($liste_saves);
         array_reverse($liste_saves);
 
@@ -41,10 +81,12 @@ class MainController extends Controller
     			exec("echo '".$liste_instance[$instance->getVersion()].":".$liste_map[$instance->getMap()]."' >> /home/event_do_not_touch/out.txt");
     		}
 		}
-
+//*/
         return $this->render('FtmMinecraftBundle:Main:serverControll.html.twig', array(
-                'etatMod'=>$etatMod[1],
-                'etatVanilla'=>$etatVanilla[1],
+                'servers'=>$servers,
+                'serverState'=>$serverStates,
+                'etatMod'=>$etatMod,
+                'etatVanilla'=>$etatVanilla,
                 'form'=>$form->createView(),
                 'saves'=>$liste_saves,
             ));    
