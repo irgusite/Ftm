@@ -1,0 +1,27 @@
+<p>Oh Maître, comme vous êtes bienveillant!</p>
+
+<p>Un nouveau membre souhaite votre approbation pour rentrer!</p>
+
+{% if user.server == 3 %}
+<p>Il souhaite acceder à la cité, mais Dobby l'en a empeché.</p>
+{% else %}
+<p>Il souhaite acceder a la maison et au bureau technique, mais Dobby l'en a empeché.</p>
+{% endif %}
+
+<p>Dobby vous donne son nom:</p>
+
+<p>{{user.pseudo}}</p>
+
+<p>Il m'a dit, que son âge devrait vous convenir. Il a dit qu'il avait {{user.age}} ans.</p>
+
+<p>Il vous laisse également ce message:</p>
+
+<p>{{user.motivation}}</p>
+
+<p>L'acceptez-vous?</p>
+
+<p><a href="{{path('ftm_moderate_player',{uniqid: user.uniqid, accept:1})}}">Acceptez ici, oh mon maître</a></p>
+
+<p><a href="{{path('ftm_moderate_player',{uniqid: user.uniqid, accept:0})}}">Ici, si vous souhaitez que Dobby le laisse à la porte</a></p>
+
+<p>Dobby vous salue!</p>

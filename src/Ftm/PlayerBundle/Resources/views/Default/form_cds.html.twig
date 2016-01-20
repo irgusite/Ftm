@@ -1,0 +1,50 @@
+{% extends "::base.html.twig" %}
+
+{%block title %}Inscriptions Cité des Marshmallow{%endblock%}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row" id="personal">	
+		<div class="col-md-12">
+<h2>Formulaire d'inscription Cité des Marshmallow</h2>
+<p>L'inscription vous sera confirmée ultérieurement par e-mail. Vous recevrez également un e-mail afin de confirmer le bon fonctionnement de l'adresse fournie ci-dessous</p>
+<form id="inscription" method="post" role="form" {{ form_enctype(form) }}>
+	<div class="form-group">
+		{{form_label(form.pseudo, 'Pseudonyme')}}
+		{{ form_widget(form.pseudo,{'attr': {'class': 'form-control'}}) }}
+	</div>
+ 
+	<div class="form-group">
+		{{form_label(form.email, 'E-Mail')}}
+		{{ form_widget(form.email,{'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		{{form_label(form.age, 'Age')}}
+		{{ form_widget(form.age,{'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		{{form_label(form.password.first, 'Mot de passe')}}
+		{{ form_widget(form.password.first,{'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group" role="form">
+		{{form_label(form.password.second, 'Répétez le mot de passe')}}
+		{{ form_widget(form.password.second,{'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		{{form_label(form.motivation, 'Motivation')}}
+		{{ form_widget(form.motivation,{'attr': {'class': 'form-control'}}) }}
+	</div>
+	{{ form_rest(form) }}
+	<button type="submit" class="btn btn-default">Soumettre</button>
+</form>
+</div></div></div>
+{%endblock%}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+$("#inscription").submit(function(event){
+	_paq.push(['trackEvent', 'Soumission', 'Inscription', $("#form_pseudo").val()]);
+});
+</script>
+{% endblock %}
