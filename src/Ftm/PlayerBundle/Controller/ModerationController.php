@@ -54,7 +54,7 @@ class ModerationController extends Controller
 			$em->flush();
 			
 		}
-		elseif($accept=='1' && $repositoryPlayer->member($inscription->getPseudo())){
+		elseif($accept=='1' && $repositoryPlayer->member($inscription->getPseudo())){//if member exists
 			$player = $repositoryPlayer->findOneByUsername($inscription->getPseudo());
 			if($inscription->getServer()==1)
 				$player->setServer(3);
@@ -122,12 +122,12 @@ class ModerationController extends Controller
 			
 			//Mail:
 			$mailer = $this->get('mailer');
-			if($player->getServer() == 3){
+			if($player->getServer() == 3 || $player->getServer() == 1){
 				$message = \Swift_Message::newInstance()
 				  ->setSubject('Salut Marshmallow!')
 				  ->setFrom('staff@ftmarshmallow.com')
 				  ->setTo($player->getEmail())
-				  ->setBody($this->renderView('FtmPlayerBundle:Moderation:accept.html.twig', array('name' => $player->getUsername(), 'password'=>$passwordUncrypt)),'text/html');
+				  ->setBody($this->renderView('FtmPlayerBundle:Moderation:citeaccept.html.twig', array('name' => $player->getUsername(), 'password'=>$passwordUncrypt)),'text/html');
 			}
 			else{
 				$message = \Swift_Message::newInstance()
@@ -166,7 +166,7 @@ class ModerationController extends Controller
 		   ->getRepository('FtmPlayerBundle:Player');
 		   
 		$inscritList = $repository->findBy(array(), array("username"=>"asc"));
-		$inscritListCDM = $repository->findBy(array('server'=>3), array("username"=>"asc"));
+		$inscritListCDM = $repository->findBy(array('server'=>[3,1]), array("username"=>"asc"));
 		
 		return $this->render("FtmPlayerBundle:Moderation:whitelist.html.twig", array('liste'=>$inscritList, 'listeCDM'=>$inscritListCDM, 'notfound'=>false));
 	}
