@@ -6,13 +6,30 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    public function testIndex()
+	private $admin = null;
+
+	public function setUp(){
+		$this->admin = static::createClient();
+	}
+
+    public function testLogin()
     {
-        /*$client = static::createClient();
+        $crawler = $this->admin->request('GET', '/login');
 
-        $crawler = $client->request('GET', '/hello/Fabien');
+        $this->admin->request('GET', '/admin/demands');
 
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);*/
-        return true;
+		$this->assertTrue($this->admin->getResponse()->isSuccessful());
+    }
+
+    public function logIn(){
+    	$session = $this->admin->getContainer()->get('session');
+
+        $firewall = 'main';
+        $token = new UsernamePasswordToken('admin', null, $firewall, array('ROLE_ADMIN'));
+        $session->set('_security_'.$firewall, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->admin->getCookieJar()->set($cookie);
     }
 }
