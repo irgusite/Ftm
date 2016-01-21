@@ -96,9 +96,11 @@ class PlayerController extends Controller
 		$uniqid = md5(microtime().rand());
 		$validation=false;//tout c'est bien passe
 		$demand=false; //fait deja l'etat d'une demande
-		$minimumAge = 13;
+		$minimumAge = 0;
 		$repo =$this->getDoctrine()->getManager()->getRepository('FtmPlayerBundle:Player');
 		$user = new Player;
+		$salt = md5(microtime().rand());
+
 		
 		$player = new Inscription;
 		
@@ -150,7 +152,6 @@ class PlayerController extends Controller
 			$player->setUniqid($uniqid);
 			$player->setMail_valid(0);
 			$player->setServer(1);//serveur cds = 3
-			$salt = md5(microtime().rand());
 			$player->setSalt($salt);
 			$factory = $this->get('security.encoder_factory');
 			$encoder = $factory->getEncoder($user);
