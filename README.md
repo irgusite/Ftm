@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/irgusite/Ftm.svg?branch=actual)](https://travis-ci.org/irgusite/Ftm)
 # README #
 This repository contains all the source code for the ftmarshmallow.com website
 
