@@ -152,7 +152,7 @@ class ModerationController extends Controller
 		   ->getRepository('FtmPlayerBundle:Inscription');
 		   
 		$inscritListCDM = $repository->findBy(array('premod'=>0, 'server'=>1));
-		$inscritList = $repository->findBy(array('premod'=>0,  'server'=>0));
+		$inscritList = $repository->findBy(array('premod'=>0,  'server'=>2));
 		$refus = $repository->findBy(array('premod'=>1));
 		$nbRefus = $repository->getIgnoredCount();
 		
