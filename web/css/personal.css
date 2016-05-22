@@ -35,10 +35,14 @@ body{
 	text-align:left;
 }
 
-.col-lg-3#personal, .col-md-3#personal, .col-md-5#personal, .col-lg-5#personal{
+.col-lg-3#personal, .col-md-3#personal, .col-md-5#personal, .col-lg-5#personal,.col-lg-9#personal, .col-md-9#personal{
+	
+}
+.inner-personnal{
 	background-color: rgba(0,0,0,0.5);
 	-moz-border-radius: 5px;
-	border-radius: 5px
+	border-radius: 5px;
+	padding: 1px;
 }
 
 footer{

@@ -1,37 +1,26 @@
 {% extends "::base.html.twig" %}
 
 {%block title %}
-Ftm - Le serveur
+Les Marshmallow
 {%endblock%}
 
 {% block body %}
-	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" id="personal">
+	<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" id="personal">
+		<div class="inner-personnal">
 		<h2>News</h2>
 			{% for New in News %}
 				<h4>{{New.title}}</h4>
 				<p>{{New.text|raw|nl2br}}</p>
 			{% endfor %}
-	</div>
-	{% if is_full_view() %}
-	<div class="col-lg-6 col-md-6 hidden-xs hidden-sm">
-		<div class="embed-responsive embed-responsive-4by3">
-			<iframe src="https://ftmarshmallow.com/mcmap/index.html" class="embed-responsive-item"></iframe>
 		</div>
-		<br/>
-		<div class="embed-responsive embed-responsive-16by9 ">
-			<iframe src="https://webchat.esper.net/?channels=ftmarshmallow&prompt=1" class="embed-responsive-item"></iframe>
-		</div>
-		<br/>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-">
-<input type="image" src="https://www.paypalobjects.com/fr_FR/CH/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !">
-<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
-</form>
 	</div>
+			<!--<iframe src="https://ftmarshmallow.com/mcmap/index.html" class="embed-responsive-item"></iframe>
+			<iframe src="https://webchat.esper.net/?channels=ftmarshmallow&prompt=1" class="embed-responsive-item"></iframe>-->
+	
+		
 
 	<div class="col-lg-3 col-md-3 hidden-xs hidden-sm" id="personal">
+		<div class="inner-personnal">
 		<h2>Twitter</h2>
 		<a 
 		class="twitter-timeline" 
@@ -41,7 +30,14 @@ Ftm - Le serveur
 		data-theme="dark"
 		>Tweets de @FTMarshmallow</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
 
 	</div>
-	{% endif %}
+
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+	<input type="hidden" name="cmd" value="_s-xclick">
+	<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+	<input type="image" src="https://www.paypalobjects.com/fr_FR/CH/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !">
+	<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+	</form>
 {%endblock%}

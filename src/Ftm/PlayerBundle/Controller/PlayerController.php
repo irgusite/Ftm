@@ -334,7 +334,7 @@ class PlayerController extends Controller
 		  }
 		}
 		
-        return $this->render('FtmPlayerBundle:Player:info.html.twig', array('valid'=>$validation, 'form' => $form->createView(), 'username'=>$username));
+        return $this->render('FtmPlayerBundle:Player:info.html.twig', array('valid'=>$validation, 'form' => $form->createView(), 'username'=>$username, 'api'=>$player->getApi()));
 	}
 	
 	public function generatePassAction($name)
