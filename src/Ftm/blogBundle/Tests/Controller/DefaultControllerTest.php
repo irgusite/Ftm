@@ -14,9 +14,11 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', $url);
+        fwrite(STDERR, print_r("\nTesting page: ".$url, TRUE));
 
         $this->assertTrue($client->getResponse()->isSuccessful());
 
+        fwrite(STDERR, print_r(" OK", TRUE));
         
     }
 
@@ -36,10 +38,10 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
-    	echo "Twitter\n";
+    	fwrite(STDERR, print_r("\nTwitter", TRUE));
         $this->assertTrue($crawler->filter('html:contains("Twitter")')->count() > 0);
 
-        echo "News\n";
+        fwrite(STDERR, print_r("\nNews", TRUE));
         $this->assertTrue($crawler->filter('html:contains("News")')->count() > 0);
     }
 }

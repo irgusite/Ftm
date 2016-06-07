@@ -16,6 +16,8 @@ class DefaultControllerTest extends WebTestCase
 
     public function testLogin()
     {
+        fwrite(STDERR, print_r("\nLogin tests ", TRUE));
+
         $this->admin->request('GET', '/login');
     	$this->assertTrue($this->admin->getResponse()->isSuccessful(), "Login page not available");
 

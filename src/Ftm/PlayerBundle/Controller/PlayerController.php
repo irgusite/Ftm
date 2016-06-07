@@ -5,6 +5,7 @@ namespace Ftm\PlayerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ftm\PlayerBundle\Entity\Inscription;
 use Ftm\PlayerBundle\Entity\Player;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PlayerController extends Controller
 {
@@ -30,7 +31,9 @@ class PlayerController extends Controller
 				->add('pseudo',        'text', array('attr'=>array('autofocus'=>'autofocus')))
 				->add('email',       'text')
 				->add('motivation',     'textarea')
-				->add('age',      'integer');
+				->add('age',      'integer')
+				->add('server', EntityType::class, array(
+							    'class'  => 'FtmPlayerBundle:Server','choice_label' => 'Name','multiple'=>true));
 		$form = $formBuilder->getForm();
 
 		$request = $this->get('request');
